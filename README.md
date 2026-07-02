@@ -37,6 +37,11 @@ qué está separado así.
 - ✅ Base geográfica: 101,568 edificios + 1,406 puntos de infraestructura crítica + 6,543 vías/puentes (La Guaira + Caracas, refresco OSM 2026-07-02).
 - ✅ Modelo de rescate: incidentes, evidencias, matching automático, prioridad transparente — probado extremo a extremo.
 - ✅ **Conector federado SOS Venezuela 2026** (`scripts/connector_sosvenezuela.py` + `sql/03_conector_sosvenezuela.sql`): ingesta de su API pública `GET /api/reports` con dedupe por `(fuente, id_externo)`, manejo de coordenadas truncadas por privacidad (`coord_precision_m` → `match_aproximado` cuando la precisión es >60 m) y su verificación comunitaria/oficial convertida en *evidencia* (confianza 60/85), nunca en verificación automática. Probado con fixture que replica exactamente su degradación de privacidad (`tests/generar_fixture_sos.py`).
+- ✅ **API propia** (`api/main.py`, FastAPI): capta reportes (`POST /api/v1/reportes`) y entrega
+  información priorizada a cualquier cuerpo de emergencia — lectura pública con coordenadas
+  degradadas por privacidad, precisión completa + despacho/verificación/exportes GeoJSON-CSV
+  con API key por roles (emergencia/ingesta/socio), todo auditado en `api_log`.
+  Guía de despliegue: [`docs/DESPLIEGUE_API.md`](docs/DESPLIEGUE_API.md).
 - ⏳ Bot de Telegram para ingesta de reportes ciudadanos (próximo paso).
 - ⏳ Panel de coordinación (mapa Leaflet).
 
