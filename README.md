@@ -42,7 +42,10 @@ qué está separado así.
   degradadas por privacidad, precisión completa + despacho/verificación/exportes GeoJSON-CSV
   con API key por roles (emergencia/ingesta/socio), todo auditado en `api_log`.
   Guía de despliegue: [`docs/DESPLIEGUE_API.md`](docs/DESPLIEGUE_API.md).
-- ⏳ Bot de Telegram para ingesta de reportes ciudadanos (próximo paso).
+- ✅ **Bot de Telegram** (`bot/telegram_bot.py`): un ciudadano reporta en ~30 s
+  (ubicación GPS + 3 preguntas con botones) y el reporte cae matcheado y priorizado
+  en la cola vía la API (key `ingesta`). Sin librerías de bot, solo `requests`;
+  probado con `--simular`. Guía: [`docs/BOT_TELEGRAM.md`](docs/BOT_TELEGRAM.md).
 - ⏳ Panel de coordinación (mapa Leaflet).
 
 ### Conector SOS Venezuela — uso
