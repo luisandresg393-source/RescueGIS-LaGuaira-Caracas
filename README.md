@@ -48,8 +48,8 @@ qué está separado así.
   probado con `--simular`. Guía: [`docs/BOT_TELEGRAM.md`](docs/BOT_TELEGRAM.md).
 - ✅ **Sucesos correlacionados** (`scripts/correlacionar_sucesos.py` + `sql/05_sucesos.sql`): reportes duplicados del mismo derrumbe se agrupan (DBSCAN 2 pasadas consciente de incertidumbre), la posición se refina por precisión GPS, la confianza sube con fuentes independientes y el grupo puede lograr match firme que ningún reporte solo tenía. Endpoints `GET /api/v1/sucesos`.
 - ✅ **Vista de campo móvil** (`GET /campo?key=...`): cola de sucesos en el teléfono del rescatista con navegación turn-by-turn (Google Maps / `geo:` para OsmAnd offline) y llamada directa al reportero. Ver [`docs/FLUJO_CAMPO.md`](docs/FLUJO_CAMPO.md).
-- ⏳ Panel de coordinación (mapa Leaflet) — [issue #1](../../issues/1), se busca colaborador.
-- ⏳ Push Telegram a rescatistas en sucesos críticos — [issue #2](../../issues/2).
+- ✅ **Panel de coordinación Leaflet** (`docs/panel_coordinacion.html`): mapa en vivo de sucesos con círculos de incertidumbre, filtros, asignación desde el popup y auto-refresh 30 s. Un solo archivo, sin build — configura URL+key al abrirlo.
+- ✅ **Push Telegram a rescatistas** (`scripts/notificar_criticos.py` + `sql/06_notificaciones.sql`): avisa sucesos críticos al teléfono según municipio o radio, con botón de navegación; no repite avisos y re-avisa si la urgencia escala.
 
 ### Conector SOS Venezuela — uso
 

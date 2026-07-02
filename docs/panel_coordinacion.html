@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RescueGIS — Panel de coordinación</title>
+<!--
+  Panel de coordinación (issue #1) — mapa Leaflet en tiempo real.
+
+  Un solo archivo, sin build. Ábrelo en un navegador con internet:
+  Leaflet viene de CDN y los tiles de OpenStreetMap. Consume la API de
+  RescueGIS (GET /api/v1/sucesos) — la URL y la key se piden al abrir y
+  quedan en localStorage del navegador (nunca en este archivo).
+
+  Con key rol 'emergencia' permite además ASIGNAR sucesos desde el popup
+  (PATCH /despacho del incidente más representativo del suceso).
+-->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; }
+  body { display:flex; flex-direction:column; font-family:-apple-system,'Segoe UI',Roboto,sans-serif; background:#0b1220; color:#e2e8f0; }
+  header { display:flex; align-items:center; gap:14px; padding:8px 14px; background:#111a2e; border-bottom:1px solid #1e293b; flex-wrap:wrap; }
+  header h1 { font-size:1rem; }
+  header .stat { font-size:.78rem; color:#94a3b8; }
+  header .stat b { color:#e2e8f0; }
+  select, button { background:#1e293b; color:#e2e8f0; border:1px solid #334155; border-radius:8px; padding:5px 10px; font-size:.8rem; cursor:pointer; }
+  #estado { margin-left:auto; font-size:.75rem; color:#64748b; }
+  #map { flex:1; }
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip { background:#131c30; color:#e2e8f0; }
+  .pop h3 { font-size:.95rem; margin-bottom:4px; }
+  .pop .l { color:#94a3b8; font-size:.75rem; }
+  .pop .fila { margin:3px 0; font-size:.82rem; }
+  .pop a.btn, .pop button.btn { display:inline-block; margin:6px 6px 0 0; padding:6px 10px; border-radius:8px; font-size:.78rem; font-weight:700; text-decoration:none; border:none; cursor:pointer; }
+  .b-nav { background:#2563eb; color:#fff; } .b-asig { background:#16a34a; color:#fff; } .b-det { background:#334155; color:#e2e8f0; }
+  .aviso { position:absolute; inset:0; background:#0b1220ee; z-index:2000; display:flex; align-items:center; justify-content:center; }
+  .aviso .caja { background:#131c30; border:1px solid #1e293b; border-radius:14px; padding:26px; max-width:420px; width:92%; }
+  .aviso h2 { font-size:1.05rem; margin-bottom:12px; }
+  .aviso label { font-size:.78rem; color:#94a3b8; display:block; margin:10px 0 4px; }
+  .aviso input { width:100%; background:#0b1220; border:1px solid #334155; border-radius:8px; padding:9px 10px; color:#e2e8f0; font-size:.85rem; }
+  .aviso button { width:100%; margin-top:16px; padding:11px; background:#2563eb; border:none; font-weight:700; font-size:.9rem; }
+  .aviso .nota { font-size:.72rem; color:#64748b; margin-top:10px; line-height:1.5; }
+  .leyenda { position:absolute; bottom:18px; left:12px; z-index:1000; background:#131c30dd; border:1px solid #1e293b; border-radius:10px; padding:8px 12px; font-size:.75rem; }
+  .leyenda span { display:inline-block; margin-right:12px; }
+  .dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; vertical-align:-1px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🇻🇪 RescueGIS · Coordinación</h1>
+  <span class="stat">sucesos: <b id="n-total">–</b></span>
+  <span class="stat" style="color:#fda4af">críticos: <b id="n-crit">–</b></span>
+  <span class="stat" style="color:#4ade80">sin asignar: <b id="n-libre">–</b></span>
+  <select id="f-urgencia">
+    <option value="">todas las urgencias</option>
+    <option>CRITICA</option><option>ALTA</option><option>MEDIA</option><option>BAJA</option>
+  </select>
+  <label style="font-size:.78rem"><input type="checkbox" id="f-libres"> solo sin asignar</label>
+  <button id="btn-refrescar">↻ Actualizar</button>
+  <button id="btn-config" title="cambiar API/key">⚙</button>
+  <span id="estado">—</span>
+</header>
+<div id="map"></div>
+<div class="leyenda">
+  <span><span class="dot" style="background:#e11d48"></span>CRÍTICA</span>
+  <span><span class="dot" style="background:#f97316"></span>ALTA</span>
+  <span><span class="dot" style="background:#eab308"></span>MEDIA</span>
+  <span><span class="dot" style="background:#22c55e"></span>BAJA</span>
+  <span style="color:#64748b">· círculo = incertidumbre de posición</span>
+</div>
+
+<div class="aviso" id="config" style="display:none">
+  <div class="caja">
+    <h2>Conexión a la API de RescueGIS</h2>
+    <label>URL de la API</label>
+    <input id="in-url" placeholder="https://api.turescuegis.org" value="http://127.0.0.1:8000">
+    <label>API key (rol emergencia o socio — opcional: sin key verás datos degradados)</label>
+    <input id="in-key" placeholder="rgis_...">
+    <button onclick="guardarConfig()">Conectar</button>
+    <div class="nota">La key se guarda solo en este navegador (localStorage), nunca se envía a
+    terceros. El mapa usa tiles de OpenStreetMap (requiere internet).</div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const COLORES = { CRITICA:'#e11d48', ALTA:'#f97316', MEDIA:'#eab308', BAJA:'#22c55e' };
+let map, capa, cfg = { url: localStorage.getItem('rg_url'), key: localStorage.getItem('rg_key') || '' };
+
+function guardarConfig() {
+  cfg.url = document.getElementById('in-url').value.trim().replace(/\/$/, '');
+  cfg.key = document.getElementById('in-key').value.trim();
+  localStorage.setItem('rg_url', cfg.url); localStorage.setItem('rg_key', cfg.key);
+  document.getElementById('config').style.display = 'none';
+  cargar();
+}
+
+function initMapa() {
+  map = L.map('map').setView([10.55, -66.93], 11);  // La Guaira + Caracas
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(map);
+  capa = L.layerGroup().addTo(map);
+}
+
+async function api(ruta, opts = {}) {
+  const h = { 'Content-Type': 'application/json' };
+  if (cfg.key) h['X-Api-Key'] = cfg.key;
+  const r = await fetch(cfg.url + ruta, { ...opts, headers: h });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+
+async function cargar() {
+  const est = document.getElementById('estado');
+  est.textContent = 'cargando…';
+  try {
+    const urg = document.getElementById('f-urgencia').value;
+    const libres = document.getElementById('f-libres').checked;
+    let q = '/api/v1/sucesos?limit=500';
+    if (urg) q += '&urgencia=' + urg;
+    if (libres) q += '&sin_asignar=true';
+    const d = await api(q);
+    pintar(d.sucesos);
+    document.getElementById('n-total').textContent = d.total;
+    document.getElementById('n-crit').textContent = d.sucesos.filter(s => s.urgencia === 'CRITICA').length;
+    document.getElementById('n-libre').textContent = d.sucesos.filter(s => !s.alguien_asignado).length;
+    est.textContent = (d.precision === 'exacta' ? '🔓 precisión exacta' : '🔒 datos degradados (sin key)')
+      + ' · ' + new Date().toLocaleTimeString();
+  } catch (e) {
+    est.textContent = '⚠ ' + e.message + ' — ¿URL/key correctas? (⚙)';
+  }
+}
+
+function pintar(sucesos) {
+  capa.clearLayers();
+  const orden = { BAJA:0, MEDIA:1, ALTA:2, CRITICA:3 };
+  sucesos.sort((a,b) => orden[a.urgencia] - orden[b.urgencia]);  // críticos al final = encima
+  for (const s of sucesos) {
+    if (s.lat == null) continue;
+    const c = COLORES[s.urgencia] || '#64748b';
+    if (s.coord_precision_m > 40)
+      L.circle([s.lat, s.lon], { radius: s.coord_precision_m, color: c, weight: 1,
+                                 fillOpacity: 0.06, opacity: 0.35 }).addTo(capa);
+    const m = L.circleMarker([s.lat, s.lon], {
+      radius: s.urgencia === 'CRITICA' ? 10 : s.urgencia === 'ALTA' ? 8 : 6,
+      color: '#0f172a', weight: 1, fillColor: c, fillOpacity: 0.9 }).addTo(capa);
+    m.bindPopup(popupHTML(s), { maxWidth: 300 });
+  }
+}
+
+function popupHTML(s) {
+  const asig = s.alguien_asignado
+    ? `<div class="fila">🚒 <b>${s.asignado_a || 'asignado'}</b></div>`
+    : `<div class="fila" style="color:#4ade80"><b>SIN ASIGNAR</b></div>`;
+  const match = s.building_match_metodo === 'auto_150m'
+    ? `🏢 ${s.edificio || ''} <span class="l">(match firme)</span>`
+    : `📌 ±${Math.round(s.coord_precision_m || 0)} m — <span style="color:#fdba74">confirmar en sitio</span>`;
+  return `<div class="pop">
+    <h3>${s.codigo} · <span style="color:${COLORES[s.urgencia]}">${s.urgencia}</span></h3>
+    <div class="fila"><b>${(s.tipo_dominante||'').replace(/_/g,' ')}</b>
+      ${s.personas_max ? ' · 👥 ' + s.personas_max : ''}${s.heridos_max ? ' · 🩸 ' + s.heridos_max : ''}</div>
+    <div class="fila">${match}</div>
+    <div class="fila l">${s.num_reportes} reporte(s) · ${s.num_fuentes} fuente(s) · confianza ${s.confianza}%<br>
+      fuentes: ${s.fuentes || '—'} · ${s.municipio || ''}</div>
+    ${asig}
+    <a class="btn b-nav" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lon}">🧭 Navegar</a>
+    <button class="btn b-asig" onclick="asignar('${s.codigo}')">✋ Asignar a mi cuerpo</button>
+  </div>`;
+}
+
+async function asignar(codigo) {
+  if (!cfg.key) { alert('Asignar requiere una API key con rol emergencia (⚙).'); return; }
+  try {
+    const det = await api('/api/v1/sucesos/' + codigo);
+    const abiertos = det.reportes.filter(r => !r.asignado_a);
+    if (!abiertos.length) { alert('Ya está asignado.'); return; }
+    for (const r of abiertos)
+      await api(`/api/v1/incidentes/${r.codigo}/despacho`,
+                { method: 'PATCH', body: JSON.stringify({ accion: 'asignar' }) });
+    alert(`✅ ${codigo} asignado (${abiertos.length} reporte(s)).`);
+    cargar();
+  } catch (e) { alert('Error: ' + e.message + ' — ¿tu key tiene rol emergencia?'); }
+}
+
+document.getElementById('btn-refrescar').onclick = cargar;
+document.getElementById('btn-config').onclick = () => document.getElementById('config').style.display = 'flex';
+document.getElementById('f-urgencia').onchange = cargar;
+document.getElementById('f-libres').onchange = cargar;
+
+initMapa();
+if (!cfg.url) document.getElementById('config').style.display = 'flex';
+else { document.getElementById('in-url').value = cfg.url; document.getElementById('in-key').value = cfg.key; cargar(); }
+setInterval(cargar, 30000);   // auto-refresh 30 s
+</script>
+</body>
+</html>
