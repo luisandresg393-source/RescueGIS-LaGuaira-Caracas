@@ -56,7 +56,7 @@ esta prueba rápida.
 
 ## 5. (Opcional) Descargar el inventario completo real
 
-Esto descarga los ~96,634 edificios reales de La Guaira y Caracas desde la
+Esto descarga los ~101,568 edificios reales de La Guaira y Caracas desde la
 API pública de Overpass. Puede tardar varios minutos dependiendo de la carga
 del servidor público.
 

@@ -15,7 +15,7 @@
         ┌──────────────────────────────────────────────┐
         │            PostgreSQL 17 + PostGIS 3.5         │
         │                                                │
-        │  buildings (96,634)   infraestructura (1,406)  │
+        │  buildings (101,568)   infraestructura (1,406)  │
         │  vias (6,530)         incidentes               │
         │                       evidencias                │
         │                                                │
@@ -62,7 +62,7 @@
 ## Por qué PostGIS y no una solución ad-hoc
 
 - El operador KNN (`<->`) con índice GiST permite buscar "el punto más cercano"
-  entre decenas de miles de edificios en milisegundos — probado sobre 96,634
+  entre decenas de miles de edificios en milisegundos — probado sobre 101,568
   filas.
 - `ST_DWithin` con geografía (metros reales, no grados) evita errores de
   distorsión que aparecen al usar distancia euclidiana en lat/lon plano.

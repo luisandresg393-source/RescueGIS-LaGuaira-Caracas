@@ -1,10 +1,31 @@
-# 🇻🇪 RescueGIS — La Guaira / Caracas (Demo)
+# 🇻🇪 RescueGIS — La Guaira / Caracas
 
-**Motor open-source de matching y priorización de reportes de rescate, sobre una base de 96,634 edificios reales.**
+**Motor open-source de matching y priorización de reportes de rescate, sobre una base de 101,568 edificios reales.**
 
 Construido en respuesta al terremoto de Venezuela del 24 de junio de 2026 (doblete sísmico Mw 7.2 / 7.5, Yaracuy).
 
 ---
+
+## 👋 ¿Llegas desde Facebook/redes? Empieza aquí
+
+**¿Qué es esto?** Software gratuito que convierte reportes ciudadanos ("hay gente atrapada aquí")
+en una cola priorizada por edificio para los rescatistas. Ya funciona — falta ponerlo en línea y más manos.
+
+**¿Cómo ayudo según lo que sé hacer?**
+
+| Si sabes de... | Ve directo a... | Tiempo |
+|---|---|---|
+| 🖥️ **Servidores / DevOps** | [Issue #4 — desplegar a producción](../../issues/4) ← **LO MÁS URGENTE** | ~2 h |
+| 🐍 **Python / PostGIS** | [Issue #3 — mejorar precisión](../../issues/3) (good first issue) | tu ritmo |
+| 🗺️ **JS / mapas** | Mejoras al panel (`docs/panel_coordinacion.html`) — abre un issue con tu idea | tu ritmo |
+| 🤔 **No estoy seguro** | Instala el proyecto (15 min, abajo) y abre un issue diciendo "quiero ayudar" | 15 min |
+| 📢 **No programo** | Comparte el proyecto · repórtale bugs · tradúcelo | 5 min |
+
+**Estado al detalle:** [`docs/ESTADO_2026-07-02.md`](docs/ESTADO_2026-07-02.md) ·
+**Preguntas:** abre un [issue](../../issues) — se responde rápido, en español o inglés.
+
+---
+
 
 ## ¿Qué hace esto en 30 segundos?
 
