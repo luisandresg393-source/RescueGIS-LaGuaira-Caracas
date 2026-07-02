@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Flujo de Rescate — Ejemplo end-to-end</title>
+<style>
+  body { font-family: -apple-system, 'Segoe UI', Arial, sans-serif; background:#0b0f14; color:#e6edf3; margin:0; padding:28px; }
+  h1 { font-size: 21px; margin-bottom: 2px;}
+  p.sub { color:#9aa7b1; margin-top:4px; font-size:13px; margin-bottom:26px;}
+  .flow { display:flex; gap:16px; align-items:stretch; flex-wrap:wrap; }
+  .step { background:#111823; border:1px solid #2a3542; border-radius:10px; padding:16px 18px; width:220px; position:relative; }
+  .step h3 { font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:#7dd3fc; margin:0 0 8px 0; }
+  .step .big { font-size:22px; font-weight:700; margin:2px 0;}
+  .step .detail { font-size:12px; color:#c6d0d8; line-height:1.5; }
+  .arrow { align-self:center; font-size:24px; color:#4a5568; }
+  .tag { display:inline-block; font-size:10.5px; padding:2px 8px; border-radius:20px; margin-top:8px; }
+  .tag.pending { background:#78350f; color:#fbbf24; }
+  .tag.verified { background:#064e3b; color:#34d399; }
+  .code { font-family: 'SF Mono', Consolas, monospace; color:#f0b429; }
+  .score-box { margin-top:32px; background:#111823; border:1px solid #2a3542; border-radius:10px; padding:20px; max-width:720px; }
+  .score-box h3 { margin-top:0; font-size:15px; color:#7dd3fc;}
+  table { border-collapse: collapse; width:100%; font-size:13px; margin-top:10px;}
+  td, th { padding:6px 8px; text-align:left; border-bottom:1px solid #232d38; }
+  th { color:#9aa7b1; font-weight:600; }
+  .total-row td { font-weight:700; color:#fff; border-top:2px solid #3a4756; }
+  .prio-alta { color:#fb923c; font-weight:700;}
+  .footer-note { margin-top:22px; font-size:12px; color:#8b98a3; max-width:720px; line-height:1.6;}
+</style>
+</head>
+<body>
+
+<h1>🚨 Flujo de rescate probado extremo a extremo</h1>
+<p class="sub">Caso real de prueba (datos sintéticos) sobre la base de 96,634 edificios cargada en PostGIS — La Guaira / Caracas</p>
+
+<div class="flow">
+  <div class="step">
+    <h3>1. Reporte ciudadano</h3>
+    <div class="detail">"Mujer reporta 30 personas vivas bajo edificio, escucha golpes desde el sótano"</div>
+    <div class="detail" style="margin-top:8px;">📍 GPS: 10.61155, -66.37955<br>Fuente: Telegram</div>
+    <span class="tag pending">PENDIENTE VERIFICACIÓN</span>
+  </div>
+  <div class="arrow">→</div>
+  <div class="step">
+    <h3>2. Matching automático</h3>
+    <div class="detail">PostGIS busca el edificio más cercano (KNN, radio máx. 150m)</div>
+    <div class="big code">LG-004248</div>
+    <div class="detail">Distancia: <b>2.68 m</b><br>Método: <span class="code">auto_150m</span></div>
+  </div>
+  <div class="arrow">→</div>
+  <div class="step">
+    <h3>3. Prioridad calculada</h3>
+    <div class="big" style="color:#fb923c;">🟠 ALTA</div>
+    <div class="detail">Score: <b>95</b> pts<br>Estado: <span class="code">PERSONAS_ATRAPADAS</span></div>
+  </div>
+  <div class="arrow">→</div>
+  <div class="step">
+    <h3>4. Evidencia recibida</h3>
+    <div class="detail">📷 Foto + GPS coincide<br>3 confirmaciones independientes</div>
+    <div class="big">90%</div>
+    <div class="detail">nivel de confianza</div>
+  </div>
+  <div class="arrow">→</div>
+  <div class="step">
+    <h3>5. Verificado por coordinador</h3>
+    <div class="detail">Defensa Civil — Puesto La Guaira</div>
+    <div class="big" style="color:#fb923c;">🟠 ALTA</div>
+    <div class="detail">Score final: <b>110</b> pts</div>
+    <span class="tag verified">VERIFICADO</span>
+  </div>
+</div>
+
+<div class="score-box">
+  <h3>📊 Desglose transparente del score (edificio LG-004248)</h3>
+  <table>
+    <tr><th>Componente</th><th>Cálculo</th><th>Puntos</th></tr>
+    <tr><td>Personas atrapadas</td><td>30 × 3</td><td>90</td></tr>
+    <tr><td>Reporte confirmado (tras verificación)</td><td>1 × 20</td><td>20</td></tr>
+    <tr><td>Heridos</td><td>0 × 5</td><td>0</td></tr>
+    <tr><td>Horas sin ayuda</td><td>~0 h (recién reportado)</td><td>0</td></tr>
+    <tr><td>Cercanía a hospital/bomberos (&lt;200m)</td><td>no aplica (1,009 m)</td><td>0</td></tr>
+    <tr class="total-row"><td>TOTAL</td><td></td><td class="prio-alta">110 → 🟠 ALTA</td></tr>
+  </table>
+</div>
+
+<div class="footer-note">
+  <b>Nota de diseño:</b> ningún reporte se marca "verificado" automáticamente. Todo incidente entra como
+  <i>pendiente de verificación</i> y solo sube de estado cuando un coordinador autorizado lo confirma o
+  hay evidencia cruzada suficiente (fotos, múltiples testimonios independientes, GPS coincidente).
+  Si el GPS de un reporte no cae a menos de 150m de ningún edificio conocido, el sistema
+  <b>no fuerza una asignación incierta</b> — queda para revisión manual.
+</div>
+
+</body>
+</html>

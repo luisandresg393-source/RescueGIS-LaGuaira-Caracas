@@ -1,0 +1,26 @@
+version: "3.9"
+
+# Levanta PostgreSQL + PostGIS localmente para desarrollo/pruebas.
+# Uso: cd docker && docker compose up -d
+#
+# Luego, desde la raíz del repo:
+#   export $(cat .env | xargs)
+#   psql -h 127.0.0.1 -U postgres -d rescuegis -f sql/01_schema.sql
+#   psql -h 127.0.0.1 -U postgres -d rescuegis -f sql/02_modelo_rescate.sql
+
+services:
+  postgis:
+    image: postgis/postgis:17-3.5
+    container_name: rescuegis_postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${PGDATABASE:-rescuegis}
+      POSTGRES_USER: ${PGUSER:-postgres}
+      POSTGRES_PASSWORD: ${PGPASSWORD:?define PGPASSWORD en tu .env}
+    ports:
+      - "${PGPORT:-5432}:5432"
+    volumes:
+      - rescuegis_pgdata:/var/lib/postgresql/data
+
+volumes:
+  rescuegis_pgdata:

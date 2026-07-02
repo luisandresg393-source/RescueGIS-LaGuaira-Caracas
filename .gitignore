@@ -1,0 +1,26 @@
+# Secretos y configuración local — nunca subir
+.env
+*.env
+.env.*
+!.env.example
+
+# Descargas completas de Overpass (pueden pesar decenas de MB y no aportan nada
+# que no se pueda regenerar con scripts/download_overpass.py). Las muestras
+# pequeñas y seguras viven en data_samples/ y sí se versionan.
+/data/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Cualquier volcado de base de datos local
+*.sql.gz
+*.dump
+backups/
