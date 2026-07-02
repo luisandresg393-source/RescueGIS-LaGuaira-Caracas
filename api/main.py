@@ -494,3 +494,157 @@ def export_csv(cli: Cliente = Depends(autenticar)):
     log_api(cli, "GET", "/export/csv", 200, f"{len(rows)} filas")
     return Response("\n".join(lineas) + "\n", media_type="text/csv",
                     headers={"Content-Disposition": "attachment; filename=rescuegis_incidentes.csv"})
+
+
+# ==================================================================
+# SUCESOS: reportes correlacionados (posición refinada, confianza multi-fuente)
+# ==================================================================
+@app.get("/api/v1/sucesos", tags=["público"])
+def listar_sucesos(response: Response, cli: Cliente = Depends(autenticar),
+                   urgencia: Optional[str] = Query(None, pattern="^(BAJA|MEDIA|ALTA|CRITICA)$"),
+                   sin_asignar: bool = Query(False),
+                   limit: int = Query(100, ge=1, le=500)):
+    """Sucesos abiertos: grupos de reportes que describen la misma emergencia,
+    con posición refinada (centroide ponderado por precisión GPS), confianza
+    multi-fuente y re-match de edificio. LA vista recomendada para despacho —
+    un derrumbe con 6 reportes aparece UNA vez, no seis."""
+    where, args = ["1=1"], []
+    if urgencia:    where.append("urgencia=%s"); args.append(urgencia)
+    if sin_asignar: where.append("NOT COALESCE(alguien_asignado,false)")
+    args.append(limit)
+    with db() as conn:
+        rows = qall(conn, f"""SELECT * FROM v_sucesos_abiertos
+                              WHERE {' AND '.join(where)} LIMIT %s""", args)
+    for r in rows:
+        r["actualizado_en"] = r["actualizado_en"].isoformat() if r["actualizado_en"] else None
+        if not cli.preciso:
+            r["lat"], r["lon"] = degradar(r["lat"], r["lon"])
+    response.headers["Cache-Control"] = "public, max-age=20" if not cli.preciso else "no-store"
+    log_api(cli, "GET", "/api/v1/sucesos", 200, f"{len(rows)} filas")
+    return {"total": len(rows), "precision": "exacta" if cli.preciso else "degradada_privacidad",
+            "atribucion": ATRIBUCION, "sucesos": rows}
+
+
+@app.get("/api/v1/sucesos/{codigo}", tags=["público"])
+def detalle_suceso(codigo: str, cli: Cliente = Depends(autenticar)):
+    """Un suceso con todos sus reportes individuales (la evidencia cruda)."""
+    with db() as conn:
+        suc = qone(conn, "SELECT * FROM v_sucesos_abiertos WHERE codigo=%s", (codigo,))
+        if not suc:
+            suc = qone(conn, """SELECT s.*, b.codigo_corto AS edificio FROM sucesos s
+                                LEFT JOIN buildings b ON b.id=s.building_id
+                                WHERE s.codigo=%s""", (codigo,))
+        if not suc:
+            raise HTTPException(404, f"Suceso {codigo} no existe.")
+        reportes = qall(conn, """
+            SELECT codigo, tipo, urgencia::text, personas, heridos, fuente,
+                   lat, lon, coord_precision_m, descripcion, estado_verificacion::text,
+                   asignado_a, telefono_contacto, fecha
+            FROM incidentes WHERE suceso_id=(SELECT id FROM sucesos WHERE codigo=%s)
+            ORDER BY coord_precision_m ASC NULLS LAST""", (codigo,))
+    for k in ("actualizado_en", "creado_en"):
+        if suc.get(k): suc[k] = suc[k].isoformat()
+    suc.pop("id", None); suc.pop("geom", None); suc.pop("building_id", None)
+    for r in reportes:
+        r["fecha"] = r["fecha"].isoformat() if r["fecha"] else None
+        if not cli.preciso:
+            r["lat"], r["lon"] = degradar(r["lat"], r["lon"])
+            r["telefono_contacto"] = None
+            if r["descripcion"]:
+                r["descripcion"] = r["descripcion"][:140]
+    if not cli.preciso:
+        suc["lat"], suc["lon"] = degradar(suc.get("lat"), suc.get("lon"))
+    return {"suceso": suc, "reportes": reportes,
+            "precision": "exacta" if cli.preciso else "degradada_privacidad"}
+
+
+# ==================================================================
+# VISTA DE CAMPO: HTML móvil para rescatistas en terreno
+# ==================================================================
+from fastapi.responses import HTMLResponse  # noqa: E402
+
+
+@app.get("/campo", response_class=HTMLResponse, tags=["emergencia"])
+def vista_campo(key: str = Query(..., description="API key (va en la URL para poder "
+                                                   "compartirla como enlace en el grupo del cuerpo)")):
+    """Vista móvil para el teléfono del rescatista: cola de sucesos por urgencia,
+    botones de navegación (Google Maps/OsmAnd usan la coordenada REFINADA),
+    llamada directa al reportero y auto-refresco cada 60 s.
+    Autenticación por ?key= para que el jefe de cuerpo la comparta como un
+    simple enlace en WhatsApp/Telegram del equipo."""
+    key_hash = hashlib.sha256(key.strip().encode()).hexdigest()
+    with db() as conn:
+        krow = qone(conn, "SELECT * FROM api_keys WHERE key_hash=%s AND activo", (key_hash,))
+    if not krow or krow["rol"] not in ("emergencia", "admin"):
+        raise HTTPException(401, "Key inválida o sin rol de emergencia.")
+    cli = Cliente(krow)
+    rate_limit(f"key:{krow['id']}", krow["rate_limit_min"])
+
+    with db() as conn:
+        sucesos = qall(conn, "SELECT * FROM v_sucesos_abiertos LIMIT 80")
+        # teléfono del mejor reporte de cada suceso (el más preciso que tenga contacto)
+        tels = {r["suceso_id"]: r["telefono_contacto"] for r in qall(conn, """
+            SELECT DISTINCT ON (suceso_id) suceso_id, telefono_contacto
+            FROM incidentes WHERE suceso_id IS NOT NULL AND telefono_contacto IS NOT NULL
+            ORDER BY suceso_id, coord_precision_m ASC NULLS LAST""")}
+        ids = {r["codigo"]: r["id"] for r in qall(conn, "SELECT id, codigo FROM sucesos")}
+
+    UCOL = {"CRITICA": "#e11d48", "ALTA": "#f97316", "MEDIA": "#eab308", "BAJA": "#22c55e"}
+    tarjetas = []
+    for s in sucesos:
+        c = UCOL.get(s["urgencia"], "#64748b")
+        tel = tels.get(ids.get(s["codigo"]))
+        conf_txt = f"{s['confianza']}%" + (f" · {s['num_fuentes']} fuentes" if s["num_fuentes"] > 1 else "")
+        asign = (f'<div class="asig">🚒 {s["asignado_a"]}</div>' if s.get("asignado_a")
+                 else '<div class="asig libre">SIN ASIGNAR</div>')
+        botones = (
+            f'<a class="btn nav" href="https://www.google.com/maps/dir/?api=1&destination={s["lat"]},{s["lon"]}">🧭 Navegar</a>'
+            f'<a class="btn nav2" href="geo:{s["lat"]},{s["lon"]}?q={s["lat"]},{s["lon"]}({s["codigo"]})">📍 App GPS</a>'
+            + (f'<a class="btn tel" href="tel:{tel}">📞 Reportero</a>' if tel else "")
+        )
+        pers = f'<span class="pers">👥 {s["personas_max"]}</span>' if s["personas_max"] else ""
+        edif = f' · 🏢 {s["edificio"]}' if s.get("edificio") else ""
+        match_warn = (' <span class="aprox">±' + str(int(s["coord_precision_m"] or 0)) + ' m — confirmar en sitio</span>'
+                      if s.get("building_match_metodo") != "auto_150m" else "")
+        tarjetas.append(f"""
+<div class="card" style="border-left:5px solid {c}">
+  <div class="fila"><b style="color:{c}">{s['urgencia']}</b> {pers}
+    <span class="cod">{s['codigo']}</span></div>
+  <div class="tipo">{s['tipo_dominante'].replace('_',' ')}{edif}{match_warn}</div>
+  <div class="meta">{s['num_reportes']} reporte(s) · confianza {conf_txt} · {s['municipio'] or ''}</div>
+  {asign}
+  <div class="botones">{botones}</div>
+</div>""")
+
+    html = f"""<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="60">
+<title>RescueGIS Campo</title>
+<style>
+ * {{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }}
+ body {{ background:#0b1220; color:#e2e8f0; font-family:-apple-system,'Segoe UI',Roboto,sans-serif; padding:10px; }}
+ h1 {{ font-size:1.05rem; padding:4px 2px 10px; }} h1 small {{ color:#64748b; font-weight:400; }}
+ .card {{ background:#131c30; border-radius:12px; padding:12px 14px; margin-bottom:10px; }}
+ .fila {{ display:flex; gap:10px; align-items:center; font-size:1.05rem; }}
+ .cod {{ margin-left:auto; color:#64748b; font-family:monospace; font-size:.8rem; }}
+ .tipo {{ font-size:1.05rem; font-weight:600; margin:4px 0 2px; }}
+ .meta {{ color:#94a3b8; font-size:.8rem; }}
+ .pers {{ background:#e11d4822; color:#fda4af; padding:1px 8px; border-radius:99px; font-size:.85rem; }}
+ .aprox {{ color:#fdba74; font-size:.75rem; font-weight:400; }}
+ .asig {{ font-size:.8rem; margin-top:4px; color:#7dd3fc; }}
+ .asig.libre {{ color:#4ade80; font-weight:700; }}
+ .botones {{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }}
+ .btn {{ flex:1; min-width:100px; text-align:center; padding:12px 8px; border-radius:10px;
+        text-decoration:none; font-weight:700; font-size:.9rem; }}
+ .nav {{ background:#2563eb; color:#fff; }} .nav2 {{ background:#1e293b; color:#cbd5e1; }}
+ .tel {{ background:#16a34a; color:#fff; }}
+ .foot {{ color:#475569; font-size:.72rem; text-align:center; padding:14px 0 30px; line-height:1.5; }}
+</style></head><body>
+<h1>🚨 RescueGIS — Cola de campo <small>· {cli.nombre} · auto-actualiza cada 60 s</small></h1>
+{''.join(tarjetas) if tarjetas else '<div class="card">Sin sucesos abiertos ahora mismo.</div>'}
+<div class="foot">Coordenadas refinadas por correlación multi-reporte.<br>
+«confirmar en sitio» = posición aproximada, verifica visualmente al llegar.<br>
+Datos: © OpenStreetMap + fuentes ciudadanas · uso humanitario</div>
+</body></html>"""
+    log_api(cli, "GET", "/campo", 200, f"{len(sucesos)} sucesos")
+    return HTMLResponse(html)
