@@ -57,7 +57,8 @@ import psycopg2.extras
 
 from db_config import DB_CONFIG
 
-API_URL = "https://sosvenezuela2026.com/api/reports"
+# SOS_API_URL permite apuntar a un mock local para pruebas end-to-end
+API_URL = os.environ.get("SOS_API_URL", "https://sosvenezuela2026.com/api/reports")
 FUENTE = "sosvenezuela2026"
 ATRIBUCION = "SOS Venezuela 2026 (sosvenezuela2026.com) — datos abiertos para fines humanitarios"
 USER_AGENT = "RescueGIS-LaGuaira-Caracas/1.0 (conector humanitario; github.com/luisandresg393-source/RescueGIS-LaGuaira-Caracas)"

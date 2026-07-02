@@ -12,6 +12,7 @@
   h2 { font-size: 1.05rem; margin: 26px 0 10px; color:#94a3b8; text-transform: uppercase; letter-spacing: .06em; }
   .sub { color:#94a3b8; font-size:.9rem; margin-bottom: 18px; }
   .warn { background:#7c2d1218; border:1px solid #ea580c66; color:#fdba74; padding:10px 14px; border-radius:10px; font-size:.85rem; margin-bottom:18px; }
+  .tip { background:#0c4a6e18; border:1px solid #0284c766; color:#7dd3fc; padding:10px 14px; border-radius:10px; font-size:.85rem; margin:10px 0 18px; }
   .cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap:12px; }
   .card { background:#111a2e; border:1px solid #1e293b; border-radius:12px; padding:14px 16px; }
   .card .v { font-size:1.5rem; font-weight:700; }
@@ -26,6 +27,8 @@
   tr:hover td { background:#16213a; }
   .mono { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size:.78rem; }
   .pill { padding:2px 8px; border-radius:999px; font-size:.72rem; font-weight:600; white-space:nowrap; }
+  .links a { color:#60a5fa; text-decoration:none; font-size:.75rem; white-space:nowrap; margin-right:6px; }
+  .links a:hover { text-decoration:underline; }
   .foot { margin-top:26px; color:#64748b; font-size:.78rem; line-height:1.6; }
   .score { background:#111a2e; border:1px solid #1e293b; border-radius:12px; padding:14px 18px; font-size:.85rem; line-height:1.7; color:#cbd5e1; }
   code { background:#1e293b; padding:1px 6px; border-radius:5px; font-size:.78rem; }
@@ -33,10 +36,13 @@
 </head>
 <body>
 <h1>🇻🇪 RescueGIS · Conector SOS Venezuela 2026</h1>
-<div class="sub">La Guaira + Caracas · base OSM de 101,568 edificios · 1,406 puntos de infraestructura crítica · 6,543 vías/puentes — generado 2026-07-02</div>
+<div class="sub">La Guaira + Caracas · base OSM de 101,568 edificios · 1,406 puntos de infraestructura crítica · 6,543 vías/puentes — generado 2026-07-02 18:42 UTC</div>
 
-<div class="warn">⚠ <strong>Corrida con fixture simulado.</strong> El API en vivo de sosvenezuela2026.com respondía HTTP 500 durante toda esta sesión, así que esta corrida usa <code>data/fixture_sos_reports.json</code>: 400 reportes sintéticos generados desde edificios OSM reales con la <em>misma</em> degradación de privacidad de su plataforma (jitter 80–250 m + redondeo a 3 decimales, replicado de su <code>schema.sql</code>). Ningún incidente mostrado aquí es real. Cuando su API vuelva, basta correr <code>python3 scripts/connector_sosvenezuela.py</code> — el pipeline es idéntico.</div>
-
+<div class="warn">⚠ <strong>Corrida con fixture simulado.</strong> El API en vivo de sosvenezuela2026.com
+respondía HTTP 500, así que estos incidentes provienen de <code>data/fixture_sos_reports.json</code>:
+reportes sintéticos generados desde edificios OSM reales con la <em>misma</em> degradación de privacidad
+de su plataforma (jitter 80–250 m + redondeo a 3 decimales). Ningún incidente mostrado es real.
+Cuando su API vuelva: <code>python3 scripts/watch_sosvenezuela.py</code> ingiere automáticamente.</div>
 <div class="cards">
   <div class="card"><div class="v">348</div><div class="l">incidentes ingeridos</div></div>
   <div class="card"><div class="v" style="color:#16a34a">0</div><div class="l">match firme (&lt;150 m, GPS preciso)</div></div>
@@ -53,211 +59,211 @@
     <rect width="1100" height="420" fill="#0e1626"/>
     <text x="12" y="20" fill="#334155" font-size="11">↑ N · costa de La Guaira arriba, valle de Caracas abajo · lon -67.00 → -66.33</text>
     <circle cx="37.4" cy="160.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000096 · MEDIA (59) · 1 rep · atrapados est. 2</title></circle>
-<circle cx="232.3" cy="98.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008944 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="51.0" cy="155.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013116 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="793.4" cy="56.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002279 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="234.1" cy="97.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008938 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="124.6" cy="150.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-010135 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="121.2" cy="151.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008193 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="796.5" cy="47.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002361 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="82.4" cy="162.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013189 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="175.7" cy="358.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001243 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="81.9" cy="175.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-021353 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="811.8" cy="61.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002181 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="106.6" cy="168.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006497 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="82.1" cy="167.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000321 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="119.5" cy="147.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007945 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="116.3" cy="151.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-011226 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="808.9" cy="49.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002315 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="85.2" cy="172.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-038157 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="83.7" cy="160.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-029957 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="105.4" cy="160.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007728 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="62.8" cy="188.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-040429 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="63.9" cy="180.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-016655 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="107.0" cy="164.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006425 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="65.6" cy="184.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014224 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="790.0" cy="44.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002164 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="65.5" cy="180.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-018359 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="42.7" cy="180.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-018214 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="108.3" cy="159.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-010863 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="236.5" cy="88.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-037706 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="111.5" cy="163.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006826 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="1060.5" cy="131.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005012 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="808.9" cy="49.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002315 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="811.8" cy="61.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002181 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="796.5" cy="47.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002361 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="793.4" cy="56.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002279 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="1062.7" cy="138.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004963 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="49.0" cy="180.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012231 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="113.1" cy="151.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007033 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="45.9" cy="180.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015010 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="1060.5" cy="131.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005012 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="1067.2" cy="181.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005294 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="1060.3" cy="171.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005213 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="1061.8" cy="168.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005184 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="116.3" cy="151.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-011226 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="108.3" cy="159.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-010863 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="111.5" cy="163.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006826 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="106.6" cy="168.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006497 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="105.4" cy="160.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007728 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="107.0" cy="164.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006425 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="236.5" cy="86.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-037708 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="236.5" cy="88.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-037706 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="234.1" cy="97.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008938 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="232.3" cy="98.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008944 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="113.1" cy="151.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007033 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="119.5" cy="147.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007945 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="124.6" cy="150.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-010135 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="51.0" cy="155.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013116 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="72.2" cy="171.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-040549 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="70.6" cy="175.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-011724 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="49.0" cy="180.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012231 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="45.9" cy="180.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015010 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="42.3" cy="188.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013038 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="36.5" cy="160.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000093 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="70.6" cy="175.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-011724 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="1061.8" cy="168.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005184 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="72.2" cy="171.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-040549 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="236.5" cy="86.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-037708 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="82.4" cy="162.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013189 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="81.9" cy="175.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-021353 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="82.1" cy="167.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000321 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="85.2" cy="172.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-038157 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="83.7" cy="160.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-029957 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="62.8" cy="188.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-040429 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="63.9" cy="180.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-016655 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="65.6" cy="184.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014224 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="65.5" cy="180.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-018359 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="47.5" cy="176.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-021188 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="42.7" cy="180.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-018214 · MEDIA (58) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="180.8" cy="360.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001465 · MEDIA (56) · 1 rep · atrapados est. 1</title></circle>
 <circle cx="72.1" cy="184.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-039532 · MEDIA (56) · 1 rep · atrapados est. 1</title></circle>
 <circle cx="75.1" cy="176.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-018881 · MEDIA (56) · 1 rep · atrapados est. 1</title></circle>
-<circle cx="230.9" cy="97.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008896 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="228.8" cy="89.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-044379 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="234.2" cy="92.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008933 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="231.2" cy="94.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008908 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="108.1" cy="155.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008437 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="109.8" cy="163.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006865 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="176.6" cy="359.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001242 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="174.9" cy="348.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001436 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="182.0" cy="352.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001466 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="35.6" cy="155.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000033 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="234.7" cy="95.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008936 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="234.9" cy="86.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006122 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="106.4" cy="171.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006689 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="177.0" cy="364.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001114 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1060.2" cy="129.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004892 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="60.8" cy="159.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014184 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1061.1" cy="129.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005141 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="231.2" cy="94.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008908 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="174.9" cy="348.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001436 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="62.3" cy="183.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012476 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1059.7" cy="129.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004869 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="182.0" cy="352.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001466 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="125.7" cy="152.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-009894 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="109.1" cy="173.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007527 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="109.8" cy="168.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006324 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1062.3" cy="134.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005162 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="798.7" cy="51.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002215 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="119.6" cy="151.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008412 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="111.3" cy="167.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006347 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="104.8" cy="155.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007170 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="109.9" cy="155.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008464 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="114.7" cy="148.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007011 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="111.4" cy="159.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-011154 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1048.6" cy="202.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005325 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1052.8" cy="188.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005322 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1053.4" cy="184.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005321 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1056.4" cy="183.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005320 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1057.9" cy="185.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005318 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="796.4" cy="50.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002201 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="46.1" cy="185.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012953 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="796.0" cy="48.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002362 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="797.4" cy="64.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002073 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="808.4" cy="63.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001848 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="807.5" cy="61.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002179 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="35.6" cy="155.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000033 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="61.0" cy="179.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013408 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="75.3" cy="180.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-021960 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="72.2" cy="180.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-026005 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="72.0" cy="168.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015892 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="74.0" cy="168.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-016893 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="72.2" cy="164.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015501 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="73.7" cy="180.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-022077 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="37.8" cy="164.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000735 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="72.2" cy="176.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013122 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="53.9" cy="160.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005993 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="228.8" cy="89.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-044379 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1060.4" cy="167.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005197 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="230.9" cy="97.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008896 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="176.6" cy="359.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001242 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="83.6" cy="172.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015089 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="177.0" cy="368.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001126 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="234.2" cy="92.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008933 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="234.9" cy="86.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006122 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="54.3" cy="155.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-011336 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1061.2" cy="175.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005303 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="805.8" cy="58.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002178 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="53.1" cy="147.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012322 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="53.9" cy="160.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005993 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="50.7" cy="147.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012298 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="52.3" cy="160.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014830 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="54.6" cy="155.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-011337 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1059.6" cy="179.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005316 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1058.9" cy="175.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005282 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1064.0" cy="173.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005290 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1057.7" cy="182.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005317 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1055.9" cy="175.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005283 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1060.4" cy="167.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005197 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="63.9" cy="189.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015617 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="790.4" cy="65.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001883 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="59.4" cy="184.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012478 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="791.5" cy="49.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002170 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="64.0" cy="190.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-033055 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="793.0" cy="60.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002113 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="792.8" cy="51.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002173 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="70.3" cy="172.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-020429 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1060.2" cy="129.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004892 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="790.9" cy="40.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002327 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="34.5" cy="188.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-016066 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="32.8" cy="192.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-026060 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="36.5" cy="191.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013392 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="37.7" cy="196.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012752 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1061.1" cy="129.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005141 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="178.5" cy="377.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001262 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="45.9" cy="172.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-026292 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="47.6" cy="172.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-023231 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="48.8" cy="184.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012974 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1059.7" cy="129.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004869 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="37.8" cy="164.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000735 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="45.9" cy="176.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-019163 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="49.1" cy="176.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-020548 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1062.3" cy="134.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005162 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="798.7" cy="51.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002215 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="796.4" cy="50.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002201 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="176.8" cy="379.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001089 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="175.8" cy="364.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001245 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="36.1" cy="167.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-016135 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="34.2" cy="167.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-028092 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="34.5" cy="164.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-028076 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="796.0" cy="48.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002362 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="797.4" cy="64.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002073 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="81.9" cy="172.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-038545 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="808.4" cy="63.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001848 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="83.6" cy="172.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015089 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="807.5" cy="61.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002179 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="805.8" cy="58.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002178 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="790.4" cy="65.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001883 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="791.5" cy="49.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002170 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="62.3" cy="183.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012476 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="793.0" cy="60.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002113 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="792.8" cy="51.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002173 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="61.0" cy="179.8" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013408 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="63.9" cy="189.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015617 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="59.4" cy="184.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012478 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="64.0" cy="190.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-033055 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="790.9" cy="40.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002327 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="178.5" cy="377.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001262 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="176.8" cy="379.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001089 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="85.3" cy="176.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-026394 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="86.8" cy="172.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014622 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="89.9" cy="176.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014196 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="34.5" cy="164.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-028076 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="176.8" cy="372.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001128 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="60.8" cy="159.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014184 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="177.0" cy="368.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001126 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="177.0" cy="364.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001114 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="46.1" cy="185.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012953 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="175.8" cy="364.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001245 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1058.7" cy="168.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005225 · MEDIA (52) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="807.2" cy="65.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001847 · MEDIA (46) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="110.9" cy="170.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006335 · MEDIA (45) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="39.3" cy="172.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-025589 · MEDIA (41) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="792.5" cy="49.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002171 · MEDIA (39) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="42.8" cy="184.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013035 · MEDIA (37) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1048.6" cy="202.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005325 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="111.4" cy="159.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-011154 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1052.8" cy="188.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005322 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="114.7" cy="148.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007011 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="109.9" cy="155.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008464 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="86.8" cy="172.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014622 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1053.4" cy="184.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005321 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1056.4" cy="183.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005320 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1057.9" cy="185.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005318 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1061.2" cy="175.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005303 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1059.6" cy="179.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005316 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1058.7" cy="168.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005225 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="104.8" cy="155.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007170 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="111.3" cy="167.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006347 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="109.8" cy="168.2" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006324 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1058.9" cy="175.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005282 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1064.0" cy="173.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005290 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="81.9" cy="172.1" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-038545 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="109.1" cy="173.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007527 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="89.9" cy="176.5" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014196 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="106.4" cy="171.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006689 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1057.7" cy="182.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005317 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="109.8" cy="163.7" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006865 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="108.1" cy="155.6" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008437 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1055.9" cy="175.4" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005283 · MEDIA (53) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="807.2" cy="65.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001847 · MEDIA (48) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="110.9" cy="170.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006335 · MEDIA (47) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="39.3" cy="172.0" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-025589 · MEDIA (42) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="792.5" cy="49.9" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002171 · MEDIA (41) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="42.8" cy="184.3" r="4" fill="#eab308" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013035 · MEDIA (38) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="121.4" cy="147.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-009272 · ALTA (100) · 6 rep · atrapados est. 4</title></circle>
-<circle cx="45.7" cy="184.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012957 · ALTA (83) · 7 rep · atrapados est. 0</title></circle>
 <circle cx="123.2" cy="143.2" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-047150 · ALTA (83) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="45.7" cy="184.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012957 · ALTA (83) · 7 rep · atrapados est. 0</title></circle>
 <circle cx="794.9" cy="61.9" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002039 · ALTA (82) · 2 rep · atrapados est. 8</title></circle>
 <circle cx="1058.8" cy="137.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004835 · ALTA (80) · 4 rep · atrapados est. 4</title></circle>
 <circle cx="121.1" cy="143.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006568 · ALTA (78) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="795.8" cy="45.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002348 · ALTA (77) · 1 rep · atrapados est. 8</title></circle>
 <circle cx="114.7" cy="155.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-009412 · ALTA (77) · 4 rep · atrapados est. 3</title></circle>
-<circle cx="795.8" cy="45.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-002348 · ALTA (76) · 1 rep · atrapados est. 8</title></circle>
 <circle cx="44.2" cy="180.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-017973 · ALTA (74) · 4 rep · atrapados est. 2</title></circle>
 <circle cx="1063.1" cy="134.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005158 · ALTA (73) · 5 rep · atrapados est. 0</title></circle>
-<circle cx="42.5" cy="175.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-019010 · ALTA (73) · 2 rep · atrapados est. 5</title></circle>
-<circle cx="114.7" cy="151.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-010760 · ALTA (73) · 2 rep · atrapados est. 5</title></circle>
 <circle cx="44.5" cy="183.1" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015491 · ALTA (73) · 5 rep · atrapados est. 0</title></circle>
+<circle cx="114.7" cy="151.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-010760 · ALTA (73) · 2 rep · atrapados est. 5</title></circle>
 <circle cx="232.7" cy="87.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-045074 · ALTA (73) · 5 rep · atrapados est. 0</title></circle>
+<circle cx="42.5" cy="175.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-019010 · ALTA (73) · 2 rep · atrapados est. 5</title></circle>
 <circle cx="106.4" cy="160.1" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007879 · ALTA (69) · 3 rep · atrapados est. 2</title></circle>
-<circle cx="69.0" cy="172.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-018437 · ALTA (68) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="70.4" cy="163.9" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012994 · ALTA (68) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="178.8" cy="367.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001704 · ALTA (68) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="121.2" cy="155.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-009835 · ALTA (68) · 4 rep · atrapados est. 0</title></circle>
-<circle cx="111.5" cy="151.9" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008269 · ALTA (68) · 4 rep · atrapados est. 0</title></circle>
 <circle cx="175.7" cy="371.1" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001223 · ALTA (68) · 1 rep · atrapados est. 5</title></circle>
+<circle cx="111.1" cy="148.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006409 · ALTA (68) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="111.5" cy="151.9" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008269 · ALTA (68) · 4 rep · atrapados est. 0</title></circle>
+<circle cx="113.0" cy="159.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007348 · ALTA (68) · 4 rep · atrapados est. 0</title></circle>
+<circle cx="1060.8" cy="179.1" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005314 · ALTA (68) · 4 rep · atrapados est. 0</title></circle>
+<circle cx="70.4" cy="163.9" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012994 · ALTA (68) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="69.0" cy="172.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-018437 · ALTA (68) · 2 rep · atrapados est. 0</title></circle>
 <circle cx="109.8" cy="159.9" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-009554 · ALTA (68) · 4 rep · atrapados est. 0</title></circle>
 <circle cx="124.5" cy="142.2" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-009260 · ALTA (68) · 2 rep · atrapados est. 0</title></circle>
+<circle cx="178.8" cy="367.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001704 · ALTA (68) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="124.5" cy="155.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-010151 · ALTA (68) · 1 rep · atrapados est. 5</title></circle>
-<circle cx="1060.8" cy="179.1" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005314 · ALTA (68) · 4 rep · atrapados est. 0</title></circle>
-<circle cx="111.1" cy="148.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006409 · ALTA (68) · 2 rep · atrapados est. 0</title></circle>
-<circle cx="113.0" cy="159.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007348 · ALTA (68) · 4 rep · atrapados est. 0</title></circle>
 <circle cx="108.1" cy="167.9" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-006990 · ALTA (66) · 3 rep · atrapados est. 1</title></circle>
-<circle cx="177.5" cy="354.6" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001240 · ALTA (66) · 3 rep · atrapados est. 1</title></circle>
 <circle cx="126.2" cy="147.6" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-011206 · ALTA (66) · 3 rep · atrapados est. 1</title></circle>
+<circle cx="177.5" cy="354.6" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001240 · ALTA (66) · 3 rep · atrapados est. 1</title></circle>
 <circle cx="1063.3" cy="130.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005149 · ALTA (65) · 1 rep · atrapados est. 4</title></circle>
 <circle cx="1060.6" cy="138.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004995 · ALTA (64) · 2 rep · atrapados est. 2</title></circle>
 <circle cx="49.3" cy="151.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013115 · ALTA (64) · 2 rep · atrapados est. 2</title></circle>
-<circle cx="230.1" cy="99.6" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001184 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="179.0" cy="351.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001237 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="182.1" cy="353.6" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001467 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="47.5" cy="180.1" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012489 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="60.6" cy="172.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-016740 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="65.6" cy="164.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014730 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="44.0" cy="160.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015521 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="178.4" cy="365.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001122 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="80.8" cy="168.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000315 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="80.3" cy="172.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015667 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1058.8" cy="129.1" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004886 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="1060.5" cy="135.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004998 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="1061.7" cy="130.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005144 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
 <circle cx="67.0" cy="164.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-013343 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1063.7" cy="171.4" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005268 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="66.6" cy="167.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-018903 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="1060.3" cy="175.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005313 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="1050.8" cy="192.6" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005323 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="116.2" cy="147.9" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000708 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
-<circle cx="113.2" cy="155.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007094 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="60.6" cy="172.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-016740 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="124.6" cy="147.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-009489 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
-<circle cx="111.5" cy="155.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008062 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="179.0" cy="351.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001237 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="178.4" cy="365.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001122 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="1058.8" cy="129.1" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004886 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
 <circle cx="125.6" cy="142.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-009927 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
 <circle cx="230.3" cy="95.9" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008902 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="80.3" cy="172.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015667 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="111.5" cy="155.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008062 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="1060.5" cy="135.8" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-004998 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
 <circle cx="232.7" cy="93.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-008925 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="65.6" cy="164.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-014730 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="80.8" cy="168.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000315 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="182.1" cy="353.6" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001467 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="66.6" cy="167.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-018903 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="47.5" cy="180.1" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-012489 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="113.2" cy="155.7" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-007094 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="1063.7" cy="171.4" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005268 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="1061.7" cy="130.3" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005144 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="44.0" cy="160.0" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-015521 · ALTA (63) · 1 rep · atrapados est. 0</title></circle>
+<circle cx="1050.8" cy="192.6" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005323 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="116.2" cy="147.9" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-000708 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="230.1" cy="99.6" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-001184 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
+<circle cx="1060.3" cy="175.5" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-005313 · ALTA (63) · 3 rep · atrapados est. 0</title></circle>
 <circle cx="32.9" cy="195.6" r="5.5" fill="#f97316" fill-opacity="0.85" stroke="#0f172a" stroke-width="0.6"><title>LG-011231 · ALTA (61) · 2 rep · atrapados est. 1</title></circle>
   </svg>
   <div class="legend">
@@ -275,9 +281,14 @@
   La verificación de la fuente (<code>community_confirmed</code>/<code>official_verified</code>) entra como <strong>evidencia</strong> con confianza 60/85 — nunca marca el incidente como verificado automáticamente. Todo incidente con <code>match_aproximado</code> (precisión &gt;60 m por el truncado de privacidad de la fuente) exige confirmación humana antes de despachar un equipo.
 </div>
 
-<h2>Incidentes de atrapados / heridos / críticos (94 mostrados, máx. 60)</h2>
+<h2>Incidentes de atrapados / heridos / críticos (60 mostrados, máx. 60)</h2>
+<div class="tip">💡 <strong>Confirmación visual sin ir al sitio:</strong> la columna «Confirmar» abre fotos abiertas a nivel de calle
+(Mapillary / KartaView) y el contexto OSM del <em>edificio candidato</em>. Es la forma más rápida de resolver un
+<code>match_aproximado</code>: comparar la descripción del reporte con la fachada real. Los enlaces requieren internet;
+el resto del panel funciona offline. Cobertura en Venezuela: Mapillary parcial, KartaView escasa — cualquier foto que el
+equipo de campo suba a Mapillary mejora esto para todos.</div>
 <table>
-<thead><tr><th>Código</th><th>Urgencia</th><th>Tipo</th><th>Personas</th><th>Edificio</th><th>Match</th><th>Dist.</th><th>Precisión</th><th>Conf. evid.</th></tr></thead>
+<thead><tr><th>Código</th><th>Urgencia</th><th>Tipo</th><th>Personas</th><th>Edificio</th><th>Match</th><th>Dist.</th><th>Precisión</th><th>Conf. evid.</th><th>Confirmar</th></tr></thead>
 <tbody>
 <tr>
 <td class="mono">INC-000050</td>
@@ -289,6 +300,7 @@
 <td style="text-align:right" class="mono">8 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6229348&amp;lng=-66.5119679&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6229348,-66.5119679,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6229348&amp;mlon=-66.5119679#map=19/10.6229348/-66.5119679" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000273</td>
@@ -300,6 +312,7 @@
 <td style="text-align:right" class="mono">8 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.595068&amp;lng=-66.9710348&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.595068,-66.9710348,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.595068&amp;mlon=-66.9710348#map=19/10.595068/-66.9710348" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000057</td>
@@ -311,6 +324,7 @@
 <td style="text-align:right" class="mono">118 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6044077&amp;lng=-66.351005&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6044077,-66.351005,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6044077&amp;mlon=-66.351005#map=19/10.6044077/-66.351005" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000244</td>
@@ -322,6 +336,7 @@
 <td style="text-align:right" class="mono">18 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6011372&amp;lng=-66.9669203&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6011372,-66.9669203,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6011372&amp;mlon=-66.9669203#map=19/10.6011372/-66.9669203" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000243</td>
@@ -333,6 +348,7 @@
 <td style="text-align:right" class="mono">19 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5949771&amp;lng=-66.9511745&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5949771,-66.9511745,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5949771&amp;mlon=-66.9511745#map=19/10.5949771/-66.9511745" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000241</td>
@@ -344,6 +360,7 @@
 <td style="text-align:right" class="mono">7 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5929414&amp;lng=-66.9530105&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5929414,-66.9530105,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5929414&amp;mlon=-66.9530105#map=19/10.5929414/-66.9530105" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000036</td>
@@ -355,6 +372,7 @@
 <td style="text-align:right" class="mono">205 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6238525&amp;lng=-66.5053357&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6238525,-66.5053357,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6238525&amp;mlon=-66.5053357#map=19/10.6238525/-66.5053357" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000333</td>
@@ -366,6 +384,7 @@
 <td style="text-align:right" class="mono">62 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5915595&amp;lng=-66.9579236&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5915595,-66.9579236,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5915595&amp;mlon=-66.9579236#map=19/10.5915595/-66.9579236" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000054</td>
@@ -377,6 +396,7 @@
 <td style="text-align:right" class="mono">45 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6044077&amp;lng=-66.351005&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6044077,-66.351005,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6044077&amp;mlon=-66.351005#map=19/10.6044077/-66.351005" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000331</td>
@@ -388,6 +408,7 @@
 <td style="text-align:right" class="mono">81 m</td>
 <td style="text-align:right" class="mono">±1030 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.592911&amp;lng=-66.9607371&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.592911,-66.9607371,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.592911&amp;mlon=-66.9607371#map=19/10.592911/-66.9607371" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000058</td>
@@ -399,6 +420,7 @@
 <td style="text-align:right" class="mono">16 m</td>
 <td style="text-align:right" class="mono">±1030 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6048742&amp;lng=-66.3499323&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6048742,-66.3499323,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6048742&amp;mlon=-66.3499323#map=19/10.6048742/-66.3499323" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000060</td>
@@ -410,6 +432,7 @@
 <td style="text-align:right" class="mono">167 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6064924&amp;lng=-66.3509639&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6064924,-66.3509639,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6064924&amp;mlon=-66.3509639#map=19/10.6064924/-66.3509639" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000321</td>
@@ -421,6 +444,7 @@
 <td style="text-align:right" class="mono">4 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5959674&amp;lng=-66.9450224&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5959674,-66.9450224,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5959674&amp;mlon=-66.9450224#map=19/10.5959674/-66.9450224" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000064</td>
@@ -432,6 +456,7 @@
 <td style="text-align:right" class="mono">176 m</td>
 <td style="text-align:right" class="mono">±1030 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.606471&amp;lng=-66.3504358&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.606471,-66.3504358,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.606471&amp;mlon=-66.3504358#map=19/10.606471/-66.3504358" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000066</td>
@@ -443,6 +468,7 @@
 <td style="text-align:right" class="mono">198 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6063086&amp;lng=-66.3496029&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6063086,-66.3496029,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6063086&amp;mlon=-66.3496029#map=19/10.6063086/-66.3496029" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000314</td>
@@ -454,6 +480,7 @@
 <td style="text-align:right" class="mono">3 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5959769&amp;lng=-66.9469878&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5959769,-66.9469878,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5959769&amp;mlon=-66.9469878#map=19/10.5959769/-66.9469878" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000074</td>
@@ -465,6 +492,7 @@
 <td style="text-align:right" class="mono">71 m</td>
 <td style="text-align:right" class="mono">±1030 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6063688&amp;lng=-66.3501063&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6063688,-66.3501063,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6063688&amp;mlon=-66.3501063#map=19/10.6063688/-66.3501063" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000078</td>
@@ -476,6 +504,7 @@
 <td style="text-align:right" class="mono">43 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6051188&amp;lng=-66.3483765&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6051188,-66.3483765,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6051188&amp;mlon=-66.3483765#map=19/10.6051188/-66.3483765" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000303</td>
@@ -487,6 +516,7 @@
 <td style="text-align:right" class="mono">21 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5971636&amp;lng=-66.9760895&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5971636,-66.9760895,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5971636&amp;mlon=-66.9760895#map=19/10.5971636/-66.9760895" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000086</td>
@@ -498,6 +528,7 @@
 <td style="text-align:right" class="mono">21 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5968793&amp;lng=-66.3491454&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5968793,-66.3491454,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5968793&amp;mlon=-66.3491454#map=19/10.5968793/-66.3491454" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000087</td>
@@ -509,6 +540,7 @@
 <td style="text-align:right" class="mono">18 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5961607&amp;lng=-66.3479949&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5961607,-66.3479949,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5961607&amp;mlon=-66.3479949#map=19/10.5961607/-66.3479949" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000095</td>
@@ -520,6 +552,7 @@
 <td style="text-align:right" class="mono">83 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5951638&amp;lng=-66.3527381&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5951638,-66.3527381,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5951638&amp;mlon=-66.3527381#map=19/10.5951638/-66.3527381" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000097</td>
@@ -531,6 +564,7 @@
 <td style="text-align:right" class="mono">21 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5968793&amp;lng=-66.3491454&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5968793,-66.3491454,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5968793&amp;mlon=-66.3491454#map=19/10.5968793/-66.3491454" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000101</td>
@@ -542,6 +576,7 @@
 <td style="text-align:right" class="mono">18 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5961607&amp;lng=-66.3479949&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5961607,-66.3479949,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5961607&amp;mlon=-66.3479949#map=19/10.5961607/-66.3479949" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000106</td>
@@ -553,6 +588,7 @@
 <td style="text-align:right" class="mono">40 m</td>
 <td style="text-align:right" class="mono">±1030 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5942818&amp;lng=-66.3497724&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5942818,-66.3497724,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5942818&amp;mlon=-66.3497724#map=19/10.5942818/-66.3497724" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000112</td>
@@ -564,6 +600,7 @@
 <td style="text-align:right" class="mono">115 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5909702&amp;lng=-66.3558357&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5909702,-66.3558357,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5909702&amp;mlon=-66.3558357#map=19/10.5909702/-66.3558357" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000010</td>
@@ -575,6 +612,7 @@
 <td style="text-align:right" class="mono">7 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5519453&amp;lng=-66.8859624&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5519453,-66.8859624,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5519453&amp;mlon=-66.8859624#map=19/10.5519453/-66.8859624" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000116</td>
@@ -586,6 +624,7 @@
 <td style="text-align:right" class="mono">9 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5990628&amp;lng=-66.928058&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5990628,-66.928058,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5990628&amp;mlon=-66.928058#map=19/10.5990628/-66.928058" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000277</td>
@@ -597,6 +636,7 @@
 <td style="text-align:right" class="mono">2 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5940134&amp;lng=-66.967991&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5940134,-66.967991,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5940134&amp;mlon=-66.967991#map=19/10.5940134/-66.967991" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000264</td>
@@ -608,6 +648,7 @@
 <td style="text-align:right" class="mono">5 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">85</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5919869&amp;lng=-66.9759557&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5919869,-66.9759557,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5919869&amp;mlon=-66.9759557#map=19/10.5919869/-66.9759557" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000253</td>
@@ -619,6 +660,7 @@
 <td style="text-align:right" class="mono">20 m</td>
 <td style="text-align:right" class="mono">±8050 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6001051&amp;lng=-66.9658553&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6001051,-66.9658553,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6001051&amp;mlon=-66.9658553#map=19/10.6001051/-66.9658553" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000256</td>
@@ -630,6 +672,7 @@
 <td style="text-align:right" class="mono">15 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5979661&amp;lng=-66.9561325&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5979661,-66.9561325,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5979661&amp;mlon=-66.9561325#map=19/10.5979661/-66.9561325" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000258</td>
@@ -641,6 +684,7 @@
 <td style="text-align:right" class="mono">3 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5979817&amp;lng=-66.9540182&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5979817,-66.9540182,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5979817&amp;mlon=-66.9540182#map=19/10.5979817/-66.9540182" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000344</td>
@@ -652,6 +696,7 @@
 <td style="text-align:right" class="mono">87 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5927715&amp;lng=-66.9688288&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5927715,-66.9688288,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5927715&amp;mlon=-66.9688288#map=19/10.5927715/-66.9688288" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000188</td>
@@ -663,6 +708,7 @@
 <td style="text-align:right" class="mono">31 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6142535&amp;lng=-66.8561238&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6142535,-66.8561238,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6142535&amp;mlon=-66.8561238#map=19/10.6142535/-66.8561238" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000189</td>
@@ -674,6 +720,7 @@
 <td style="text-align:right" class="mono">27 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6139634&amp;lng=-66.8552466&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6139634,-66.8552466,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6139634&amp;mlon=-66.8552466#map=19/10.6139634/-66.8552466" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000192</td>
@@ -685,6 +732,7 @@
 <td style="text-align:right" class="mono">59 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6164315&amp;lng=-66.8526847&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6164315,-66.8526847,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6164315&amp;mlon=-66.8526847#map=19/10.6164315/-66.8526847" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000279</td>
@@ -696,6 +744,7 @@
 <td style="text-align:right" class="mono">2 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5959795&amp;lng=-66.9690016&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5959795,-66.9690016,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5959795&amp;mlon=-66.9690016#map=19/10.5959795/-66.9690016" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000195</td>
@@ -707,6 +756,7 @@
 <td style="text-align:right" class="mono">59 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6164315&amp;lng=-66.8526847&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6164315,-66.8526847,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6164315&amp;mlon=-66.8526847#map=19/10.6164315/-66.8526847" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000204</td>
@@ -718,6 +768,7 @@
 <td style="text-align:right" class="mono">43 m</td>
 <td style="text-align:right" class="mono">±1030 m</td>
 <td style="text-align:center" class="mono">85</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6007317&amp;lng=-66.9202792&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6007317,-66.9202792,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6007317&amp;mlon=-66.9202792#map=19/10.6007317/-66.9202792" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000208</td>
@@ -729,6 +780,7 @@
 <td style="text-align:right" class="mono">7 m</td>
 <td style="text-align:right" class="mono">±8050 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6000542&amp;lng=-66.9230395&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6000542,-66.9230395,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6000542&amp;mlon=-66.9230395#map=19/10.6000542/-66.9230395" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000210</td>
@@ -740,6 +792,7 @@
 <td style="text-align:right" class="mono">7 m</td>
 <td style="text-align:right" class="mono">±8050 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6000542&amp;lng=-66.9230395&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6000542,-66.9230395,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6000542&amp;mlon=-66.9230395#map=19/10.6000542/-66.9230395" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000218</td>
@@ -751,6 +804,7 @@
 <td style="text-align:right" class="mono">20 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6030626&amp;lng=-66.9218256&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6030626,-66.9218256,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6030626&amp;mlon=-66.9218256#map=19/10.6030626/-66.9218256" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000275</td>
@@ -762,6 +816,7 @@
 <td style="text-align:right" class="mono">37 m</td>
 <td style="text-align:right" class="mono">±1030 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5932852&amp;lng=-66.9698203&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5932852,-66.9698203,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5932852&amp;mlon=-66.9698203#map=19/10.5932852/-66.9698203" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000238</td>
@@ -773,6 +828,7 @@
 <td style="text-align:right" class="mono">22 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5978167&amp;lng=-66.9529168&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5978167,-66.9529168,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5978167&amp;mlon=-66.9529168#map=19/10.5978167/-66.9529168" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000136</td>
@@ -784,6 +840,7 @@
 <td style="text-align:right" class="mono">8 m</td>
 <td style="text-align:right" class="mono">±8050 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5999847&amp;lng=-66.9279298&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5999847,-66.9279298,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5999847&amp;mlon=-66.9279298#map=19/10.5999847/-66.9279298" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000287</td>
@@ -795,6 +852,7 @@
 <td style="text-align:right" class="mono">9 m</td>
 <td style="text-align:right" class="mono">±1030 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5939178&amp;lng=-66.9699923&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5939178,-66.9699923,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5939178&amp;mlon=-66.9699923#map=19/10.5939178/-66.9699923" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000345</td>
@@ -806,6 +864,7 @@
 <td style="text-align:right" class="mono">1 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5950093&amp;lng=-66.9679949&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5950093,-66.9679949,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5950093&amp;mlon=-66.9679949#map=19/10.5950093/-66.9679949" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000147</td>
@@ -817,6 +876,7 @@
 <td style="text-align:right" class="mono">13 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5969131&amp;lng=-66.9319162&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5969131,-66.9319162,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5969131&amp;mlon=-66.9319162#map=19/10.5969131/-66.9319162" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000285</td>
@@ -828,6 +888,7 @@
 <td style="text-align:right" class="mono">30 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">85</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5928406&amp;lng=-66.9672193&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5928406,-66.9672193,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5928406&amp;mlon=-66.9672193#map=19/10.5928406/-66.9672193" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000156</td>
@@ -839,6 +900,7 @@
 <td style="text-align:right" class="mono">12 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.59808&amp;lng=-66.9289316&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.59808,-66.9289316,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.59808&amp;mlon=-66.9289316#map=19/10.59808/-66.9289316" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000157</td>
@@ -850,6 +912,7 @@
 <td style="text-align:right" class="mono">41 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5988568&amp;lng=-66.932659&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5988568,-66.932659,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5988568&amp;mlon=-66.932659#map=19/10.5988568/-66.932659" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000158</td>
@@ -861,6 +924,7 @@
 <td style="text-align:right" class="mono">14 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5990969&amp;lng=-66.9309232&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5990969,-66.9309232,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5990969&amp;mlon=-66.9309232#map=19/10.5990969/-66.9309232" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000159</td>
@@ -872,6 +936,7 @@
 <td style="text-align:right" class="mono">94 m</td>
 <td style="text-align:right" class="mono">±1030 m</td>
 <td style="text-align:center" class="mono">85</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5957521&amp;lng=-66.9304003&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5957521,-66.9304003,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5957521&amp;mlon=-66.9304003#map=19/10.5957521/-66.9304003" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000162</td>
@@ -883,6 +948,7 @@
 <td style="text-align:right" class="mono">56 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5964188&amp;lng=-66.929288&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5964188,-66.929288,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5964188&amp;mlon=-66.929288#map=19/10.5964188/-66.929288" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000171</td>
@@ -894,6 +960,7 @@
 <td style="text-align:right" class="mono">13 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5969131&amp;lng=-66.9319162&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5969131,-66.9319162,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5969131&amp;mlon=-66.9319162#map=19/10.5969131/-66.9319162" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000186</td>
@@ -905,6 +972,7 @@
 <td style="text-align:right" class="mono">38 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6169064&amp;lng=-66.8526636&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6169064,-66.8526636,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6169064&amp;mlon=-66.8526636#map=19/10.6169064/-66.8526636" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000052</td>
@@ -916,6 +984,7 @@
 <td style="text-align:right" class="mono">46 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.627013&amp;lng=-66.5114165&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.627013,-66.5114165,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.627013&amp;mlon=-66.5114165#map=19/10.627013/-66.5114165" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000229</td>
@@ -927,6 +996,7 @@
 <td style="text-align:right" class="mono">3 m</td>
 <td style="text-align:right" class="mono">±8050 m</td>
 <td style="text-align:center" class="mono">60</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.5999751&amp;lng=-66.9210071&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.5999751,-66.9210071,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.5999751&amp;mlon=-66.9210071#map=19/10.5999751/-66.9210071" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 <tr>
 <td class="mono">INC-000132</td>
@@ -938,14 +1008,17 @@
 <td style="text-align:right" class="mono">3 m</td>
 <td style="text-align:right" class="mono">±328 m</td>
 <td style="text-align:center" class="mono">—</td>
+<td class="links"><a href="https://www.mapillary.com/app/?lat=10.6010273&amp;lng=-66.9269991&amp;z=17.5" target="_blank" rel="noopener">📷 Mapillary</a> <a href="https://kartaview.org/map/@10.6010273,-66.9269991,18z" target="_blank" rel="noopener">📷 KartaView</a> <a href="https://www.openstreetmap.org/?mlat=10.6010273&amp;mlon=-66.9269991#map=19/10.6010273/-66.9269991" target="_blank" rel="noopener">🗺 OSM</a></td>
 </tr>
 </tbody>
 </table>
 
 <div class="foot">
-  Fuente de incidentes: <strong>SOS Venezuela 2026</strong> (sosvenezuela2026.com) — datos abiertos para fines humanitarios; esta corrida usa un fixture simulado porque el API estaba caído (HTTP 500). Atribución y reglas de privacidad respetadas: coordenadas nunca desanonimizadas, se propaga <code>coord_precision_m</code>.<br>
-  Base geográfica: © colaboradores de OpenStreetMap (ODbL), vía Overpass API. Panel standalone sin dependencias externas — funciona offline.<br>
-  RescueGIS-LaGuaira-Caracas · scripts/connector_sosvenezuela.py · sql/03_conector_sosvenezuela.sql
+  Fuente de incidentes: <strong>SOS Venezuela 2026</strong> (sosvenezuela2026.com) — datos abiertos para fines humanitarios.
+  Atribución y reglas de privacidad respetadas: coordenadas de reportes nunca desanonimizadas; los enlaces de confirmación
+  usan la coordenada pública OSM del edificio candidato, no la del reporte.<br>
+  Base geográfica: © colaboradores de OpenStreetMap (ODbL), vía Overpass API. Fotos de calle: Mapillary (CC-BY-SA) y KartaView (open).<br>
+  RescueGIS-LaGuaira-Caracas · scripts/connector_sosvenezuela.py · scripts/watch_sosvenezuela.py · scripts/generar_panel.py
 </div>
 </body>
 </html>

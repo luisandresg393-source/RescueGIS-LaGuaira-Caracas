@@ -47,7 +47,21 @@ cd scripts
 python3 connector_sosvenezuela.py             # API en vivo (1 request por corrida, respeta su rate limit)
 python3 connector_sosvenezuela.py --dry-run   # transforma sin escribir
 python3 connector_sosvenezuela.py --from-file ../data/sos_reports_XXXX.json  # desde cache
+
+# Si su API está caída: watcher que ingiere automáticamente en cuanto vuelva
+python3 watch_sosvenezuela.py                 # sondea cada 5 min, indefinido
+python3 watch_sosvenezuela.py --once          # 1 chequeo (ideal cron: exit 0=ingirió, 1=caída)
+# cron sugerido: */10 * * * * flock -n /tmp/sos.lock python3 watch_sosvenezuela.py --once
+
+# Regenerar el panel HTML tras cada ingesta
+python3 generar_panel.py
 ```
+
+El panel incluye, por cada incidente `match_aproximado`, enlaces de **confirmación visual**
+con fotos abiertas a nivel de calle (Mapillary / KartaView) y contexto OSM del edificio
+candidato — la forma más rápida de confirmar o descartar un match sin desplazar un equipo.
+Los enlaces usan la coordenada pública OSM del edificio, nunca la del reporte (que ya viene
+degradada por privacidad y así se mantiene).
 
 Atribución de datos de incidentes: **SOS Venezuela 2026** (sosvenezuela2026.com, API abierta
 para fines humanitarios). Las coordenadas de la fuente vienen con jitter de 80–250 m y redondeo
