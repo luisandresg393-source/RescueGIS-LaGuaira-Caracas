@@ -34,10 +34,26 @@ qué está separado así.
 
 ## Estado actual
 
-- ✅ Base geográfica: 96,634 edificios + 1,406 puntos de infraestructura crítica + 6,530 vías/puentes (La Guaira + Caracas).
+- ✅ Base geográfica: 101,568 edificios + 1,406 puntos de infraestructura crítica + 6,543 vías/puentes (La Guaira + Caracas, refresco OSM 2026-07-02).
 - ✅ Modelo de rescate: incidentes, evidencias, matching automático, prioridad transparente — probado extremo a extremo.
+- ✅ **Conector federado SOS Venezuela 2026** (`scripts/connector_sosvenezuela.py` + `sql/03_conector_sosvenezuela.sql`): ingesta de su API pública `GET /api/reports` con dedupe por `(fuente, id_externo)`, manejo de coordenadas truncadas por privacidad (`coord_precision_m` → `match_aproximado` cuando la precisión es >60 m) y su verificación comunitaria/oficial convertida en *evidencia* (confianza 60/85), nunca en verificación automática. Probado con fixture que replica exactamente su degradación de privacidad (`tests/generar_fixture_sos.py`).
 - ⏳ Bot de Telegram para ingesta de reportes ciudadanos (próximo paso).
 - ⏳ Panel de coordinación (mapa Leaflet).
+
+### Conector SOS Venezuela — uso
+
+```bash
+cd scripts
+python3 connector_sosvenezuela.py             # API en vivo (1 request por corrida, respeta su rate limit)
+python3 connector_sosvenezuela.py --dry-run   # transforma sin escribir
+python3 connector_sosvenezuela.py --from-file ../data/sos_reports_XXXX.json  # desde cache
+```
+
+Atribución de datos de incidentes: **SOS Venezuela 2026** (sosvenezuela2026.com, API abierta
+para fines humanitarios). Las coordenadas de la fuente vienen con jitter de 80–250 m y redondeo
+a 3 decimales (anti-saqueo); este conector **no** intenta desanonimizarlas — registra la
+precisión estimada y degrada el match a `match_aproximado`, que exige confirmación humana.
+Panel de resultados: `docs/panel_conector_sosvenezuela.html` (standalone, offline).
 
 ## Instalación rápida
 
