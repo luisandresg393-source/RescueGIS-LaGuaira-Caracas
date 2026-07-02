@@ -101,4 +101,4 @@ de OpenStreetMap mantienen la licencia ODbL de OSM.
 
 ## Contacto
 
-[TU NOMBRE] · [tu email] · [tu GitHub/LinkedIn]
+luis · onix969@proton.me · 
