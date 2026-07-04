@@ -225,9 +225,9 @@ def ingerir(reportes, dry_run=False):
                         (tipo, descripcion, personas, urgencia, fuente, id_externo,
                          url_fuente, atribucion, coord_precision_m, lat, lon,
                          building_id, building_match_metodo, building_match_distancia_m,
-                         fecha, reportero_nombre)
+                         fecha, reportero_nombre, parroquia_declarada)
                     VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,
-                            COALESCE(%s::timestamptz, now()), %s)
+                            COALESCE(%s::timestamptz, now()), %s, %s)
                     ON CONFLICT (fuente, id_externo) WHERE id_externo IS NOT NULL
                     DO NOTHING
                     RETURNING id
@@ -239,6 +239,7 @@ def ingerir(reportes, dry_run=False):
                         b_id, b_metodo, b_dist,
                         f["fecha"],
                         (f["municipio_texto"] or "") + (" / " + f["parroquia_texto"] if f["parroquia_texto"] else ""),
+                        f["parroquia_texto"],
                     ),
                 )
                 row = cur.fetchone()

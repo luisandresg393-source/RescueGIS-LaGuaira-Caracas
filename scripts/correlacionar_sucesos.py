@@ -71,7 +71,8 @@ WITH candidatos AS (
     SELECT i.id, i.tipo, i.urgencia::text AS urgencia, i.personas, i.heridos, i.fuente,
            i.lat, i.lon, i.geom,
            COALESCE(i.coord_precision_m, %(prec_def)s) AS prec,
-           (SELECT MAX(e.nivel_confianza) FROM evidencias e WHERE e.incidente_id = i.id) AS max_evid
+           (SELECT MAX(e.nivel_confianza) FROM evidencias e WHERE e.incidente_id = i.id) AS max_evid,
+           i.parroquia_consistente
     FROM incidentes i
     WHERE i.resuelto_en IS NULL
       AND i.estado_verificacion NOT IN ('DESCARTADO','DUPLICADO')
@@ -82,7 +83,8 @@ WITH candidatos AS (
 )
 SELECT ST_ClusterDBSCAN(ST_Transform(geom, 3857), eps := %(eps)s, minpoints := 1)
            OVER () AS cluster_id,
-       id, tipo, urgencia, personas, heridos, fuente, lat, lon, prec, max_evid
+       id, tipo, urgencia, personas, heridos, fuente, lat, lon, prec, max_evid,
+       parroquia_consistente
 FROM candidatos
 """
 
@@ -162,7 +164,10 @@ def correlacionar(conn, dry_run=False):
             tipo_dom = max((m["tipo"] for m in miembros), key=lambda t: ORDEN_TIPO.get(t, 0))
             confianza = min(25 + 15 * (len(fuentes) - 1)
                             + min(5 * (len(miembros) - 1), 20)
-                            + (10 if any((m["max_evid"] or 0) >= 60 for m in miembros) else 0), 95)
+                            + (10 if any((m["max_evid"] or 0) >= 60 for m in miembros) else 0)
+                            # issue #3: coordenada contradice la parroquia declarada → -15
+                            - (15 if any(m.get("parroquia_consistente") is False for m in miembros) else 0), 95)
+            confianza = max(confianza, 5)
 
             if dry_run:
                 if len(miembros) > 1:
