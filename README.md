@@ -103,17 +103,32 @@ Panel de resultados: `docs/panel_conector_sosvenezuela.html` (standalone, offlin
 
 ## Instalación rápida
 
+**Servidor Debian/Ubuntu limpio → sistema completo en UN comando** (BD + 101k
+edificios OSM + API como servicio + cron). Probado de punta a punta:
+
 ```bash
-git clone <URL-de-este-repo>
+git clone https://github.com/luisandresg393-source/RescueGIS-LaGuaira-Caracas.git
 cd RescueGIS-LaGuaira-Caracas
+sudo bash instalar.sh          # ~30-40 min (la descarga OSM es lo lento)
+```
+
+Al final imprime tu primera API key y deja la API viva en `:8000`.
+Después: nginx+TLS (`docs/DESPLIEGUE_API.md` §3) y el token del bot
+(`docs/BOT_TELEGRAM.md`). Re-correrlo es seguro (idempotente).
+`sudo bash instalar.sh --sin-osm` si ya tienes `data/` descargado;
+`bash instalar.sh --solo-verificar` para el smoke test.
+
+<details><summary>Instalación manual paso a paso (desarrollo, Docker)</summary>
+
+```bash
 cp .env.example .env    # define tu contraseña de Postgres
 pip install -r requirements.txt
 cd docker && docker compose up -d && cd ..
 export $(cat .env | xargs)
-psql -h $PGHOST -U $PGUSER -d $PGDATABASE -f sql/01_schema.sql
-psql -h $PGHOST -U $PGUSER -d $PGDATABASE -f sql/02_modelo_rescate.sql
+for f in sql/0*.sql; do psql -h $PGHOST -U $PGUSER -d $PGDATABASE -f $f; done
 cd scripts && python3 load_buildings.py la_guaira
 ```
+</details>
 
 Guía completa, con la descarga del inventario real de 96k edificios: [`docs/INSTALACION.md`](docs/INSTALACION.md).
 
