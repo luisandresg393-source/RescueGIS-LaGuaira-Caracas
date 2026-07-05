@@ -1,86 +1,82 @@
-# 🇻🇪 Motor de priorización PostGIS — Respuesta al terremoto Venezuela 2026
+# 🇻🇪 RescueGIS — Motor de priorización de rescate · Venezuela 2026
 
 **Aporte técnico voluntario para la activación #2026_LACH_VE_EQ (HOT)**
+Repo: https://github.com/luisandresg393-source/RescueGIS-LaGuaira-Caracas (MIT)
 
 ---
 
 ## ¿Qué es?
 
-Un módulo de **matching automático de reportes ciudadanos a edificios** + **priorización transparente de rescate**, construido sobre una base geográfica de **96,634 edificios reales** de La Guaira y Caracas (OpenStreetMap vía Overpass API).
+La capa de **inteligencia espacial** entre los reportes ciudadanos y los cuerpos
+de emergencia: vincula cada reporte GPS a un **edificio específico** del
+inventario OSM, **correlaciona reportes duplicados** del mismo suceso, calcula
+una **prioridad transparente**, y la entrega por API al mapa del coordinador y
+al **teléfono del rescatista** en terreno.
 
-No es otro mapa de reportes más — es la capa de **inteligencia espacial** que conecta un reporte con coordenadas GPS a un edificio específico del inventario, y calcula qué tan urgente es atenderlo, de forma auditable.
+No es otro mapa de reportes — es el módulo que conecta los mapas con el despacho.
 
 ---
 
-## 1. Base geográfica ya cargada
+## 1. Base geográfica (OSM vía Overpass, refresco 2026-07-02)
 
-| Municipio | Edificios | Infraestructura crítica | Vías / puentes |
-|---|---|---|---|
-| La Guaira (Municipio Vargas) | 46,889 | 193 (hospitales, bomberos, escuelas, refugios, gasolineras, telecom, agua, electricidad) | 835 |
-| Caracas | 49,745 | 1,180 | 5,704 |
-| **Total** | **96,634** | **1,406** | **6,530** |
+| Municipio | Edificios | Infra crítica | Vías/puentes | Parroquias |
+|---|---|---|---|---|
+| La Guaira (Vargas) | 47,173 | 193 | 835 | 11 |
+| Caracas | 54,402 | 1,213 | 5,717 | 32 |
+| **Total** | **101,568** | **1,406** | **6,552** | **43** |
 
 ![Cobertura GIS](map/screenshot_mapa_verificacion.png)
 
-*Cada punto es un edificio real de OSM con centroide, tipo, pisos y material (cuando el dato existe en OSM). Los puntos de color son infraestructura crítica.*
-
----
-
-## 2. El flujo que resuelve
-
-Un reporte ciudadano por sí solo ("hay gente atrapada en tal calle") no le dice a un coordinador **a qué edificio específico del inventario corresponde**, ni **qué tan urgente es comparado con los otros 500 reportes que llegaron hoy**. Eso es lo que resuelve este módulo:
-
-![Flujo end-to-end](map/screenshot_flujo_rescate.png)
-
-**Paso a paso:**
-1. Llega un reporte con coordenadas GPS (Telegram, formulario web, lo que sea).
-2. PostGIS busca el edificio más cercano usando un índice espacial GiST + operador KNN — **rápido incluso sobre 96k+ filas** (con toda la base, el precómputo de distancias a infraestructura crítica tomó ~53 segundos).
-3. **Radio máximo de 150 metros.** Si no hay ningún edificio conocido cerca, el reporte queda `sin_match` para revisión manual — **nunca se fuerza una asignación incierta**.
-4. La prioridad del edificio se recalcula automáticamente (trigger de base de datos, no un cron ni un job externo) cada vez que llega un nuevo reporte o evidencia.
-5. Todo reporte entra como `PENDIENTE_VERIFICACIÓN`. Solo sube a `VERIFICADO` cuando un coordinador autorizado lo confirma, o hay evidencia cruzada suficiente (foto + GPS + testimonios independientes).
-
----
-
-## 3. Fórmula de prioridad (transparente, por componentes — no una caja negra)
+## 2. Pipeline completo (todo construido y probado)
 
 ```
-score = (personas_atrapadas    × 3)
-      + (heridos               × 5)
-      + (fallecidos_reportados × 2)
-      + (horas_sin_ayuda, tope 48h)
-      + (incidentes_confirmados × 20)
-      + (incidentes_pendientes  × 5)
-      + 15  si el edificio ES infraestructura crítica (hospital/escuela/bomberos)
-      + 10  si tiene hospital o bomberos a <200m
+ bot Telegram (±10 m) ──┐
+ SOS Venezuela (±330 m) ├─► matching GPS→edificio ─► correlación de sucesos ─► cola priorizada
+ API socios / manual  ──┘    (KNN, radio adaptativo    (posición refinada por      │
+                              según precisión GPS;      1/precisión², confianza    ├─► panel Leaflet coordinador
+                              nunca fuerza matches      multi-fuente, validación   ├─► vista móvil /campo (navegar+llamar)
+                              inciertos)                por parroquias)            └─► push Telegram a rescatistas
 ```
 
-🔴 CRÍTICA ≥120 · 🟠 ALTA ≥60 · 🟡 MEDIA ≥20 · 🟢 BAJA <20
+**Detalles que importan en emergencia real:**
+- Reportes con coordenada degradada por privacidad (p.ej. SOS Venezuela trunca
+  a ±330 m) se marcan `match_aproximado` y **exigen confirmación humana** — pero
+  al correlacionarse con un GPS preciso del mismo suceso, el grupo logra match
+  firme (probado: 3 reportes ±330/±330/±9 m → 1 suceso a 2.2 m del edificio).
+- Validación cruzada con los 43 polígonos de parroquias: coordenada que
+  contradice la parroquia declarada → confianza penalizada.
+- Nada se verifica automáticamente: la verificación siempre lleva firma
+  (API key auditada) de un coordinador.
+- Fórmula de prioridad **pública y auditable** (personas, heridos, tiempo sin
+  ayuda, infra crítica, confirmaciones) — ayuda a decidir, no sustituye criterio.
 
-Cada componente queda registrado y es auditable — un coordinador puede ver *por qué* un edificio tiene ese score, no solo el número final. Esto es deliberado: **la fórmula es una ayuda a la decisión, no un reemplazo del criterio humano.**
+## 3. Entrega a cuerpos de emergencia
 
----
+- **API REST** con roles: lectura pública con coordenadas degradadas
+  (anti-saqueo); precisión completa + despacho (asignar/verificar/resolver)
+  con API key auditada. Exportes **GeoJSON** (directo a QGIS) y CSV.
+- **Vista móvil** para el teléfono del rescatista: cola por urgencia,
+  navegación turn-by-turn (Google Maps / `geo:` para OsmAnd **offline**),
+  llamada directa al reportero.
+- **Push Telegram**: sucesos críticos llegan solos al teléfono, filtrados por
+  municipio o radio.
 
-## 4. Stack técnico
+## 4. Interoperabilidad (lo que nos gustaría conversar con HOT)
 
-- **PostgreSQL 17 + PostGIS 3.5** — esquema con triggers para recálculo automático de prioridad.
-- Ingesta desde **Overpass API** (edificios, infraestructura crítica, vías/puentes) con reintentos y control de rate-limit.
-- Todo el código es Python + SQL estándar, sin dependencias exóticas — fácil de auditar e integrar.
-- **Cero datos personales o sensibles en este repositorio.** Las pruebas mostradas usan datos sintéticos (el ejemplo "30 personas atrapadas" es un caso de prueba, no un incidente real).
+- **Consumimos**: cualquier fuente con API (ya integrado: SOS Venezuela 2026,
+  respetando su modelo de privacidad). Formato de ingesta documentado.
+- **Ofrecemos**: sucesos correlacionados y priorizados vía API/GeoJSON — 
+  ¿útil para cruzar con el dataset de daños validado por humanos de fAIr
+  (Caraballeda/La Guaira/Caracas)? Ese cruce daría prioridad × daño confirmado.
+- **Despliegue en 1 comando** (`sudo bash instalar.sh` en Debian/Ubuntu limpio:
+  BD + datos + API en ~40 min, probado). Cualquier equipo puede auto-hospedar.
 
----
+## 5. Estado y necesidad
 
-## 5. Lo que buscamos
+| | |
+|---|---|
+| Software | ✅ completo, probado E2E, MIT |
+| Servidor de producción | ⏳ en curso (VPS esta semana) |
+| Lo que buscamos | integración con proyectos activos de la activación, acceso al dataset de daños fAIr, y difusión entre equipos técnicos |
 
-**No queremos fragmentar el ecosistema que ya existe** (terremotovenezuela.app, venezuela-ayuda, y el trabajo de HOT con fAIr y el dataset de daños validado por humanos). Este módulo se ofrece como:
-
-- Código de referencia para cualquier equipo que ya tenga un mapa de reportes y necesite la capa de matching + priorización.
-- Punto de partida para integrar directamente con un proyecto activo, si algún equipo lo necesita.
-- Complemento a los datos de daños de HOT/fAIr: cruzar "qué edificios ya están dañados" (dataset validado) con "qué edificios tienen reportes de personas atrapadas ahora" (este módulo) podría ser una combinación útil.
-
----
-
-## Contacto
-
-[TU NOMBRE] · [tu email] · [tu GitHub/LinkedIn]
-Repositorio de referencia completo (código, SQL, docs, guía de instalación de
-10 minutos): [URL-DE-TU-REPO-EN-GITHUB]
+**Contacto:** Luis (autor) — vía issues del repo o el correo de este hilo.
