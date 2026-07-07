@@ -70,6 +70,11 @@ qué está separado así.
 - ✅ **Sucesos correlacionados** (`scripts/correlacionar_sucesos.py` + `sql/05_sucesos.sql`): reportes duplicados del mismo derrumbe se agrupan (DBSCAN 2 pasadas consciente de incertidumbre), la posición se refina por precisión GPS, la confianza sube con fuentes independientes y el grupo puede lograr match firme que ningún reporte solo tenía. Endpoints `GET /api/v1/sucesos`.
 - ✅ **Vista de campo móvil** (`GET /campo?key=...`): cola de sucesos en el teléfono del rescatista con navegación turn-by-turn (Google Maps / `geo:` para OsmAnd offline) y llamada directa al reportero. Ver [`docs/FLUJO_CAMPO.md`](docs/FLUJO_CAMPO.md).
 - ✅ **Panel de coordinación Leaflet** (`docs/panel_coordinacion.html`): mapa en vivo de sucesos con círculos de incertidumbre, filtros, asignación desde el popup y auto-refresh 30 s. Un solo archivo, sin build — configura URL+key al abrirlo.
+- ✅ **Conector ChatMap (HOT)** (`scripts/connector_chatmap.py`): ingiere el GeoJSON
+  de [ChatMap](https://chatmap.hotosm.org) — la herramienta oficial de HOT para mapear
+  chats de WhatsApp/Telegram/Signal usada en la activación — con clasificación
+  transparente del texto en español (tipo/urgencia/personas, con manejo de negaciones),
+  matching a edificio y dedupe. Los adjuntos del chat entran como evidencia.
 - ✅ **Push Telegram a rescatistas** (`scripts/notificar_criticos.py` + `sql/06_notificaciones.sql`): avisa sucesos críticos al teléfono según municipio o radio, con botón de navegación; no repite avisos y re-avisa si la urgencia escala.
 
 ### Conector SOS Venezuela — uso
