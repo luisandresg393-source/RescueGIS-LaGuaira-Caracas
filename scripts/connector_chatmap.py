@@ -136,7 +136,7 @@ def clasificar(texto):
     return tipo, urgencia, personas, min(ninos, personas)
 
 
-def ingerir(geojson, chat_label=None, dry_run=False):
+def ingerir(geojson, chat_label=None, dry_run=False, tipo_default=None):
     feats = geojson.get("features", [])
     print(f"  {len(feats)} ubicaciones en el GeoJSON de ChatMap")
 
@@ -146,6 +146,8 @@ def ingerir(geojson, chat_label=None, dry_run=False):
         for f in feats:
             p = f.get("properties", {})
             tipo, urg, pers, nin = clasificar(p.get("message"))
+            if tipo == "OTRO" and tipo_default:
+                tipo = tipo_default
             c[f"{tipo}/{urg}"] += 1
             print(f"  [{tipo:>16} {urg:>7} pers={pers}] {(p.get('message') or '')[:70]}")
         print("\n  Desglose:", dict(c))
@@ -166,6 +168,9 @@ def ingerir(geojson, chat_label=None, dry_run=False):
                 chat = chat_label or p.get("chat") or "chat"
                 id_ext = f"{chat}#{p.get('id')}"
                 tipo, urgencia, personas, ninos = clasificar(texto)
+                if tipo == "OTRO" and tipo_default:
+                    # chat temático (p.ej. evaluación de daños): el contexto define el tipo
+                    tipo = tipo_default
 
                 cur.execute("SELECT * FROM buscar_edificio_aproximado(%s,%s,%s)",
                             (lat, lon, PRECISION_CHAT_M))
@@ -230,6 +235,8 @@ if __name__ == "__main__":
     ap.add_argument("--url", help="URL del GeoJSON (mapas 'Live' publicados por ChatMap)")
     ap.add_argument("--chat", help="etiqueta del chat de origen (para el id de dedupe)")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--tipo-default", choices=["DANO_ESTRUCTURAL","NECESIDAD_BASICA","OTRO"],
+                    help="tipo para mensajes sin señales en el texto (chats temáticos, p.ej. evaluación de daños)")
     args = ap.parse_args()
 
     if args.url:
@@ -242,4 +249,4 @@ if __name__ == "__main__":
     else:
         ap.error("indica un archivo GeoJSON o --url")
 
-    ingerir(geojson, chat_label=args.chat, dry_run=args.dry_run)
+    ingerir(geojson, chat_label=args.chat, dry_run=args.dry_run, tipo_default=args.tipo_default)
