@@ -1,4 +1,4 @@
-🚨 *RESCUEGIS — PARTE OPERATIVO* · 07-Jul 13:27 UTC
+🚨 *RESCUEGIS — PARTE OPERATIVO* · 07-Jul 14:09 UTC
 
 Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
 *141 reportes* → *51 sucesos* únicos (22 corroborados por 2+ reportes)
@@ -37,6 +37,26 @@ Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
    📍 https://maps.google.com/?q=10.60364,-67.02917
 🟡 *SUC-000130* · Dano Estructural · 4 rep. · LG-000803 · Urimare
    📍 https://maps.google.com/?q=10.61026,-67.02474
+
+*🔍 PERSONAS DESAPARECIDAS: 18 búsquedas activas* (2 menores — datos protegidos)
+  • PER-000010: MENOR DE EDAD (2 años) — datos protegido · Caraballeda
+  • PER-000014: MENOR DE EDAD (7 años) — datos protegido · La Guaira
+  • PER-000001: Jonathan Diaz · Caraballeda
+  • PER-000002: Jose Sabe · La Guaira
+  • PER-000003: Matriannys Morom · Caraballeda
+  • PER-000004: Ivis Guevara · La Guaira
+  • PER-000005: Víctor Gabriel Maritato · Santa Rosalia
+  • PER-000006: Thais Guevara · Caraballeda
+  Directorio completo/aportar datos: desaparecidosvenezuela.com
+
+*⚠️ DESAPARECIDOS CERCA DE EDIFICIOS DAÑADOS* (cruce georreferenciado):
+  • PER-000002 a 375 m del suceso SUC-000149 (1 reportes de daño)
+  • PER-000007 a 375 m del suceso SUC-000149 (1 reportes de daño)
+  • MENOR a 375 m del suceso SUC-000149 (1 reportes de daño)
+  • PER-000016 a 375 m del suceso SUC-000149 (1 reportes de daño)
+  • PER-000004 a 375 m del suceso SUC-000149 (1 reportes de daño)
+  • PER-000013 a 557 m del suceso SUC-000144 (8 reportes de daño)
+  _Sugerencia: los equipos que inspeccionen esos sitios lleven las fichas de búsqueda._
 
 *🏕 REFUGIOS/CAMPAMENTOS REPORTADOS (5):*
   • https://maps.google.com/?q=10.60368,-66.90595 (reportado 2026-07-06)

@@ -74,6 +74,22 @@ refugios = q(cur, """
 por_parroquia = q(cur, """
     SELECT COALESCE(parroquia_geo,'(sin parroquia)') AS parroquia, count(*) AS n
     FROM incidentes GROUP BY 1 ORDER BY 2 DESC LIMIT 10""")
+
+personas = q(cur, """
+    SELECT codigo, nombre_publico, edad, es_menor, estado, parroquia_geo, zona_texto
+    FROM v_personas_publico WHERE estado='BUSCADA' LIMIT 30""")
+
+cruces = q(cur, """
+    SELECT p.codigo AS per, p.es_menor, s.codigo AS suc, s.num_reportes,
+           round(ST_Distance(p.geom::geography, s.geom::geography)) AS dist_m
+    FROM personas_desaparecidas p
+    JOIN LATERAL (SELECT * FROM sucesos s2 WHERE s2.geom IS NOT NULL
+                  ORDER BY p.geom <-> s2.geom LIMIT 1) s ON true
+    WHERE p.estado='BUSCADA'
+      AND ST_Distance(p.geom::geography, s.geom::geography) < 600
+    ORDER BY 5 LIMIT 10""")
+
+recursos = q(cur, "SELECT * FROM v_recursos_solicitados LIMIT 10")
 conn.close()
 
 # ------------------------------------------------------------------
@@ -104,6 +120,27 @@ for s in sucesos[:12]:
         f"{icono} *{s['codigo']}* · {s['tipo_dominante'].replace('_',' ').title()} · "
         f"{s['num_reportes']} rep. · {edif}{' · '+parr if parr else ''}")
     lineas.append(f"   📍 {gmaps(s['lat'], s['lon'])}")
+
+if personas:
+    menores = sum(1 for p in personas if p["es_menor"])
+    lineas += ["", f"*🔍 PERSONAS DESAPARECIDAS: {len(personas)} búsquedas activas*"
+               + (f" ({menores} menores — datos protegidos)" if menores else "")]
+    for p in personas[:8]:
+        zona = (p["parroquia_geo"] or p["zona_texto"] or "").replace("Parroquia ", "")
+        lineas.append(f"  • {p['codigo']}: {p['nombre_publico'][:40]} · {zona[:35]}")
+    lineas.append(f"  Directorio completo/aportar datos: desaparecidosvenezuela.com")
+
+if cruces:
+    lineas += ["", "*⚠️ DESAPARECIDOS CERCA DE EDIFICIOS DAÑADOS* (cruce georreferenciado):"]
+    for c in cruces[:6]:
+        quien = "MENOR" if c["es_menor"] else c["per"]
+        lineas.append(f"  • {quien} a {int(c['dist_m'])} m del suceso {c['suc']} ({c['num_reportes']} reportes de daño)")
+    lineas.append("  _Sugerencia: los equipos que inspeccionen esos sitios lleven las fichas de búsqueda._")
+
+if recursos:
+    lineas += ["", "*🛠 RECURSOS/APOYO SOLICITADOS:*"]
+    for r in recursos:
+        lineas.append(f"  • {r['recurso']}: {r['solicitudes']} solicitud(es) en {r['parroquia'].replace('Parroquia ','')}")
 
 if refugios:
     lineas += ["", f"*🏕 REFUGIOS/CAMPAMENTOS REPORTADOS ({len(refugios)}):*"]

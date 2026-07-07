@@ -57,10 +57,21 @@ TIPOS = [
     ("🩸 Heridos", "HERIDOS"),
     ("🏚 Edificio dañado/colapsado", "DANO_ESTRUCTURAL"),
     ("🥫 Necesidad básica (agua/comida/medicinas)", "NECESIDAD_BASICA"),
+    ("🛠 Se necesita apoyo/herramientas aquí", "APOYO"),
     ("⚠️ Otro peligro", "OTRO"),
 ]
+RECURSOS = [
+    ("🚜 Maquinaria pesada", "retroexcavadora"),
+    ("🪚 Motosierra/corte", "motosierra"),
+    ("🏗 Grúa", "grua"),
+    ("⚡ Generador", "generador"),
+    ("🩺 Personal médico", "medico"),
+    ("🐕 Perro de rescate", "perro_rescate"),
+    ("👷 Más personal/manos", "personal"),
+]
 URGENCIA_POR_TIPO = {"ATRAPADOS": "CRITICA", "HERIDOS": "ALTA",
-                     "DANO_ESTRUCTURAL": "MEDIA", "NECESIDAD_BASICA": "MEDIA", "OTRO": "MEDIA"}
+                     "DANO_ESTRUCTURAL": "MEDIA", "NECESIDAD_BASICA": "MEDIA",
+                     "APOYO": "ALTA", "OTRO": "MEDIA"}
 
 MSG_BIENVENIDA = (
     "🇻🇪 *RescueGIS — Reporte de emergencia*\n\n"
@@ -106,7 +117,8 @@ def enviar(chat_id, texto, botones=None, pedir_telefono=False):
 # ------------------------------------------------------------------
 def postear_reporte(st, chat_id):
     payload = {
-        "tipo": st["tipo"],
+        "tipo": "OTRO" if st["tipo"] == "APOYO" else st["tipo"],
+        "recursos_solicitados": st.get("recursos") or None,
         "descripcion": st.get("descripcion") or None,
         "lat": st["lat"], "lon": st["lon"],
         "coord_precision_m": st.get("precision_m"),
@@ -190,13 +202,28 @@ def manejar_callback(chat_id, data):
         return
     if data.startswith("tipo:") and st["paso"] == "tipo":
         st["tipo"] = data.split(":", 1)[1]
-        if st["tipo"] in ("ATRAPADOS", "HERIDOS"):
+        if st["tipo"] == "APOYO":
+            st["personas"] = 0
+            st["recursos"] = []
+            st["paso"] = "recursos"
+            enviar(chat_id, "🛠 *¿Qué se necesita?* (puedes elegir varios; al final pulsa Continuar)",
+                   botones=[(t, f"rec:{v}") for t, v in RECURSOS] + [("▶️ Continuar", "rec:__fin__")])
+        elif st["tipo"] in ("ATRAPADOS", "HERIDOS"):
             st["paso"] = "personas"
             enviar(chat_id, "👥 *¿Cuántas personas?* (escribe el número; `0` si no sabes)")
         else:
             st["personas"] = 0
             st["paso"] = "descripcion"
             enviar(chat_id, "✏️ *Describe brevemente la situación.* O escribe `listo` para omitir.")
+        return
+    if data.startswith("rec:") and st.get("paso") == "recursos":
+        v = data.split(":", 1)[1]
+        if v == "__fin__":
+            st["paso"] = "descripcion"
+            sel = ", ".join(st.get("recursos") or ["ninguno"])
+            enviar(chat_id, f"Anotado: *{sel}*.\n✏️ *Describe brevemente* (qué pasó, referencias). O escribe `listo`.")
+        elif v not in st.setdefault("recursos", []):
+            st["recursos"].append(v)
 
 
 def finalizar(chat_id, st):

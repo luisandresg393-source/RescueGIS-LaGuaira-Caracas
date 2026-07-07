@@ -195,6 +195,8 @@ class ReporteIn(BaseModel):
     id_externo: Optional[str] = Field(None, max_length=200,
         description="ID en tu plataforma (dedupe por fuente+id_externo)")
     url_fuente: Optional[str] = Field(None, max_length=500)
+    recursos_solicitados: Optional[list[str]] = Field(None,
+        description="herramientas/apoyo que se necesita: retroexcavadora, motosierra, grua, generador, medico, perro_rescate, personal...")
 
 
 class VerificacionIn(BaseModel):
@@ -365,14 +367,16 @@ def crear_reporte(rep: ReporteIn, cli: Cliente = Depends(autenticar)):
                                     urgencia, fuente, id_externo, url_fuente, atribucion,
                                     reportero_nombre, telefono_contacto,
                                     lat, lon, coord_precision_m,
-                                    building_id, building_match_metodo, building_match_distancia_m)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                                    building_id, building_match_metodo, building_match_distancia_m,
+                                    recursos_solicitados)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
             ON CONFLICT (fuente, id_externo) WHERE id_externo IS NOT NULL DO NOTHING
             RETURNING codigo, building_id""",
             (rep.tipo, rep.descripcion, rep.personas, rep.heridos, rep.ninos, rep.necesidades,
              rep.urgencia, fuente, rep.id_externo, rep.url_fuente, f"vía API key: {cli.nombre}",
              rep.reportero_nombre, rep.telefono_contacto,
-             rep.lat, rep.lon, rep.coord_precision_m, b_id, b_met, b_dist))
+             rep.lat, rep.lon, rep.coord_precision_m, b_id, b_met, b_dist,
+             rep.recursos_solicitados))
         if row is None:
             log_api(cli, "POST", "/api/v1/reportes", 409, f"duplicado {rep.id_externo}")
             raise HTTPException(409, f"Reporte duplicado: ya existe (fuente={fuente}, id_externo={rep.id_externo}).")
@@ -648,3 +652,45 @@ Datos: © OpenStreetMap + fuentes ciudadanas · uso humanitario</div>
 </body></html>"""
     log_api(cli, "GET", "/campo", 200, f"{len(sucesos)} sucesos")
     return HTMLResponse(html)
+
+
+# ==================================================================
+# PERSONAS DESAPARECIDAS (migración 08)
+# ==================================================================
+@app.get("/api/v1/personas", tags=["público"])
+def listar_personas(response: Response, cli: Cliente = Depends(autenticar),
+                    estado: Optional[str] = Query(None, pattern="^(BUSCADA|INFO_RECIBIDA|ENCONTRADA_VIVA|ENCONTRADA_FALLECIDA|REUNIFICADA)$"),
+                    limit: int = Query(100, ge=1, le=500)):
+    """Directorio de personas desaparecidas. Público: menores SIEMPRE enmascarados,
+    sin contactos, coordenadas ~aprox. Con key emergencia: datos completos para
+    reunificación (auditado)."""
+    with db() as conn:
+        if cli.rol == "emergencia" or cli.rol == "admin":
+            rows = qall(conn, """SELECT codigo, nombre, edad, es_menor, genero, descripcion,
+                                        zona_texto, estado::text, parroquia_geo, foto_url, contacto,
+                                        lat, lon, reportado_en, fuente
+                                 FROM personas_desaparecidas
+                                 WHERE (%s::text IS NULL OR estado::text=%s) 
+                                 ORDER BY es_menor DESC, reportado_en DESC LIMIT %s""",
+                        (estado, estado, limit))
+        else:
+            rows = qall(conn, """SELECT * FROM v_personas_publico
+                                 WHERE (%s::text IS NULL OR estado=%s) LIMIT %s""",
+                        (estado, estado, limit))
+    for r in rows:
+        if r.get("reportado_en"): r["reportado_en"] = r["reportado_en"].isoformat()
+    response.headers["Cache-Control"] = "public, max-age=60" if not cli.preciso else "no-store"
+    log_api(cli, "GET", "/api/v1/personas", 200, f"{len(rows)}")
+    return {"total": len(rows), "menores_protegidos": True,
+            "atribucion": "Directorio base: desaparecidosvenezuela.com + aportes propios",
+            "personas": rows}
+
+
+@app.get("/api/v1/logistica/recursos", tags=["público"])
+def recursos_solicitados(response: Response, cli: Cliente = Depends(autenticar)):
+    """Agregado de recursos/apoyo solicitados (herramientas, maquinaria, personal)
+    por parroquia — para logística: QUÉ llevar A DÓNDE."""
+    with db() as conn:
+        rows = qall(conn, "SELECT * FROM v_recursos_solicitados")
+    response.headers["Cache-Control"] = "public, max-age=60"
+    return {"total": len(rows), "recursos": rows}
