@@ -1,0 +1,133 @@
+# ============================================================
+# Sincronización automática SIN SERVIDOR (GitHub Actions, gratis)
+#
+# Cada 3 horas (y a demanda con "Run workflow"):
+#   1. Levanta PostGIS efímero como service container
+#   2. Carga los edificios/parroquias desde data_ci/ (cache del repo)
+#      o los descarga de Overpass si no existen
+#   3. Ingiere TODOS los mapas ChatMap de la emergencia + SOS Venezuela
+#      (si su API revivió)
+#   4. Correlaciona sucesos y regenera docs/live/*
+#      (brief WhatsApp, GeoJSON para QGIS, CSV, panel)
+#   5. Commitea docs/live/ → GitHub Pages lo publica en URLs fijas
+#
+# Resultado: los cuerpos de emergencia siempre tienen el parte
+# actualizado en el mismo enlace, sin que nadie opere nada.
+# ============================================================
+name: Sincronizar activación (ChatMap/SOS) y publicar parte
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"     # cada 3 horas
+  workflow_dispatch: {}         # botón manual en la pestaña Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-activacion
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+
+    services:
+      postgis:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_DB: rescuegis
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ci_rescuegis
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s --health-timeout 5s --health-retries 10
+
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: "5432"
+      PGDATABASE: rescuegis
+      PGUSER: postgres
+      PGPASSWORD: ci_rescuegis
+      RESCUEGIS_DATA_DIR: ${{ github.workspace }}/data
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependencias
+        run: pip install -q psycopg2-binary requests shapely
+
+      - name: Cache de datos OSM (edificios/infra/vías/parroquias)
+        id: cache-osm
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: osm-data-v1
+
+      - name: Descargar OSM (solo si no hay cache — ~20 min la primera vez)
+        if: steps.cache-osm.outputs.cache-hit != 'true'
+        run: |
+          cd scripts
+          for m in la_guaira caracas; do
+            python3 download_overpass.py buildings $m
+            python3 download_overpass.py infra $m
+            python3 download_overpass.py roads $m
+          done
+          python3 - <<'EOF'
+          import json, time
+          from download_overpass import run_query, AREAS, DATA_DIR
+          for muni, rel in AREAS.items():
+              q = f'[out:json][timeout:180];area(id:{3600000000+rel})->.searchArea;relation["boundary"="administrative"]["admin_level"="7"](area.searchArea);out geom;'
+              data = run_query(q)
+              (DATA_DIR / f"parroquias_{muni}.json").write_text(json.dumps(data, ensure_ascii=False))
+              time.sleep(5)
+          EOF
+
+      - name: Migraciones + carga de base
+        run: |
+          for f in sql/0*.sql; do psql -q -f "$f" || psql -f "$f"; done
+          psql -qc "CREATE EXTENSION IF NOT EXISTS unaccent;"
+          cd scripts
+          for m in la_guaira caracas; do
+            python3 load_buildings.py $m
+            python3 load_infra.py $m
+            python3 load_vias.py $m
+            python3 load_parroquias.py $m || true
+          done
+          python3 precompute_distancias.py
+          psql -qc "UPDATE buildings SET es_infraestructura_critica=TRUE
+                    WHERE tipo IN ('hospital','school','fire_station')
+                       OR tipo_amenity IN ('hospital','clinic','school','university','college','fire_station','shelter','social_facility');"
+
+      - name: Ingerir activación (ChatMap + SOS Venezuela si revivió)
+        run: |
+          cd scripts
+          python3 sync_chatmap.py
+          python3 watch_sosvenezuela.py --once || echo "SOS Venezuela sigue caída — seguimos"
+          python3 load_parroquias.py validar || true
+          python3 correlacionar_sucesos.py
+
+      - name: Generar salidas públicas (brief/GeoJSON/CSV/panel)
+        run: |
+          cd scripts
+          python3 generar_brief.py
+          python3 generar_panel.py ../docs/live/panel.html
+
+      - name: Publicar (commit de docs/live)
+        run: |
+          git config user.name "rescuegis-bot"
+          git config user.email "bot@rescuegis.local"
+          git add docs/live
+          if git diff --cached --quiet; then
+            echo "Sin cambios en los datos — no se commitea."
+          else
+            git commit -m "🤖 Parte automático $(date -u +'%Y-%m-%d %H:%M UTC') [skip ci]"
+            git pull --rebase origin main || true
+            git push origin main
+          fi
