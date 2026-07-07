@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RescueGIS — Motor de priorización de rescate · Venezuela 2026</title>
+<meta name="description" content="Software libre que convierte reportes ciudadanos en una cola de rescate priorizada por edificio, sobre 101.568 edificios reales de La Guaira y Caracas. Se buscan colaboradores.">
+<meta property="og:title" content="RescueGIS — rescate priorizado · Terremoto Venezuela 2026">
+<meta property="og:description" content="Open source (MIT): matching GPS→edificio, correlación multi-fuente, API para cuerpos de emergencia, bot Telegram. Se buscan programadores voluntarios.">
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#0b1220; color:#e2e8f0; font-family:-apple-system,'Segoe UI',Roboto,sans-serif; line-height:1.6; }
+  .wrap { max-width:880px; margin:0 auto; padding:40px 20px; }
+  h1 { font-size:2.2rem; margin-bottom:6px; }
+  .tricolor { height:5px; width:180px; background:linear-gradient(90deg,#f7d117 33%,#003da5 33% 66%,#ce1126 66%); border-radius:3px; margin:10px 0 16px; }
+  .sub { color:#94a3b8; font-size:1.05rem; margin-bottom:26px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin:26px 0; }
+  .card { background:#111a2e; border:1px solid #1e293b; border-radius:14px; padding:18px; }
+  .card .n { font-size:1.7rem; font-weight:800; color:#fff; }
+  .card .l { font-size:.82rem; color:#94a3b8; }
+  h2 { font-size:1.15rem; margin:34px 0 12px; color:#7dd3fc; }
+  a { color:#60a5fa; }
+  .btns { display:flex; gap:12px; flex-wrap:wrap; margin:22px 0; }
+  .btn { display:inline-block; padding:13px 22px; border-radius:12px; font-weight:700; text-decoration:none; }
+  .b1 { background:#2563eb; color:#fff; } .b2 { background:#1e293b; color:#e2e8f0; border:1px solid #334155; }
+  .b3 { background:#16a34a; color:#fff; }
+  ul { padding-left:22px; } li { margin:7px 0; }
+  .flow { background:#111a2e; border:1px solid #1e293b; border-radius:14px; padding:16px 20px; font-family:ui-monospace,Menlo,monospace; font-size:.8rem; overflow-x:auto; white-space:pre; color:#cbd5e1; }
+  .foot { margin-top:44px; color:#64748b; font-size:.8rem; border-top:1px solid #1e293b; padding-top:18px; }
+  .tag { display:inline-block; background:#1e293b; border-radius:99px; padding:2px 12px; font-size:.75rem; margin:2px; color:#94a3b8; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🇻🇪 RescueGIS</h1>
+  <div class="tricolor"></div>
+  <div class="sub"><strong>Software libre que convierte reportes ciudadanos en una cola de rescate priorizada por edificio.</strong><br>
+  Construido en respuesta al terremoto del 24 de junio de 2026 (Mw 7.2 / 7.5) — La Guaira y Caracas.</div>
+
+  <div class="btns">
+    <a class="btn b1" href="https://github.com/luisandresg393-source/RescueGIS-LaGuaira-Caracas">⭐ Código en GitHub (MIT)</a>
+    <a class="btn b3" href="https://github.com/luisandresg393-source/RescueGIS-LaGuaira-Caracas/issues/5">🙋 Quiero colaborar</a>
+    <a class="btn b2" href="panel_conector_sosvenezuela.html">🗺 Ver demo del panel</a>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="n">101.568</div><div class="l">edificios reales de OSM (La Guaira + Caracas)</div></div>
+    <div class="card"><div class="n">43</div><div class="l">parroquias con validación geográfica cruzada</div></div>
+    <div class="card"><div class="n">4</div><div class="l">fuentes de ingesta: Telegram, ChatMap (HOT), SOS Venezuela, API</div></div>
+    <div class="card"><div class="n">1 comando</div><div class="l">para desplegar todo el stack (instalar.sh)</div></div>
+  </div>
+
+  <h2>Cómo funciona</h2>
+  <div class="flow">ciudadano (WhatsApp/Telegram/web) ──► matching GPS → edificio OSM (radio adaptativo
+                                       según precisión; nunca fuerza matches inciertos)
+                                     ──► correlación de reportes duplicados
+                                       (posición refinada + confianza multi-fuente)
+                                     ──► cola priorizada (fórmula transparente)
+                                     ──► API + mapa del coordinador
+                                     ──► teléfono del rescatista (navegar / llamar)</div>
+
+  <h2>Qué está funcionando ya</h2>
+  <ul>
+    <li><strong>Bot de Telegram</strong>: reporte ciudadano en ~30 segundos con GPS</li>
+    <li><strong>Conector ChatMap (HOT)</strong>: los chats de WhatsApp mapeados con la herramienta oficial de la activación entran directo a la cola</li>
+    <li><strong>Conector SOS Venezuela 2026</strong>: federación respetando su privacidad de coordenadas</li>
+    <li><strong>API REST</strong> con roles (público degradado / cuerpos de emergencia con precisión total), exportes GeoJSON/CSV para QGIS</li>
+    <li><strong>Vista móvil de campo</strong> y <strong>push Telegram</strong> para rescatistas en terreno</li>
+    <li><strong>Panel de coordinación</strong> con mapa Leaflet en tiempo real</li>
+  </ul>
+
+  <h2>Se busca</h2>
+  <ul>
+    <li>🖥️ <strong>Un servidor</strong> para ponerlo en producción (<a href="https://github.com/luisandresg393-source/RescueGIS-LaGuaira-Caracas/issues/4">issue #4</a> — 2 comandos, ~45 min)</li>
+    <li>👨‍💻 <strong>Programadores</strong> Python / PostGIS / JS — <a href="https://github.com/luisandresg393-source/RescueGIS-LaGuaira-Caracas/issues/5">preséntate aquí</a></li>
+    <li>🤝 <strong>Integraciones</strong> con plataformas de la respuesta (HOT, plataformas ciudadanas, cuerpos de emergencia)</li>
+  </ul>
+
+  <span class="tag">PostGIS</span><span class="tag">FastAPI</span><span class="tag">OpenStreetMap</span><span class="tag">Telegram</span><span class="tag">Leaflet</span><span class="tag">MIT</span><span class="tag">español/english</span>
+
+  <div class="foot">
+    Proyecto humanitario sin fines de lucro y sin afiliación política. Datos de edificios © colaboradores de OpenStreetMap (ODbL).
+    Ningún dato personal de víctimas se publica; el prototipo usa datos abiertos y sintéticos.<br>
+    Contacto: <a href="https://github.com/luisandresg393-source/RescueGIS-LaGuaira-Caracas/issues">issues de GitHub</a>.
+  </div>
+</div>
+</body>
+</html>
