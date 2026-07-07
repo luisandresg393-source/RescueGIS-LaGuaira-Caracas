@@ -177,6 +177,7 @@ if command -v crontab >/dev/null 2>&1; then
   cat >> "$CRON_TMP" <<EOF
 */2 * * * * cd $REPO_DIR/scripts && $(command -v python3) correlacionar_sucesos.py >> $REPO_DIR/data/cron.log 2>&1 # rescuegis
 */10 * * * * cd $REPO_DIR/scripts && flock -n /tmp/sos.lock $(command -v python3) watch_sosvenezuela.py --once >> $REPO_DIR/data/cron.log 2>&1 # rescuegis
+*/15 * * * * cd $REPO_DIR/scripts && flock -n /tmp/chatmap.lock $(command -v python3) sync_chatmap.py >> $REPO_DIR/data/cron.log 2>&1 # rescuegis
 EOF
   crontab "$CRON_TMP" && rm -f "$CRON_TMP"
   ok "Cron instalado"
