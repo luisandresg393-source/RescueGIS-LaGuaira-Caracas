@@ -1,4 +1,4 @@
-🚨 *RESCUEGIS — PARTE OPERATIVO* · 07-Jul 14:09 UTC
+🚨 *RESCUEGIS — PARTE OPERATIVO* · 07-Jul 15:03 UTC
 
 Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
 *141 reportes* → *51 sucesos* únicos (22 corroborados por 2+ reportes)
@@ -13,50 +13,30 @@ Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
   • (sin parroquia): 5 reportes
 
 *SUCESOS PRINCIPALES* (más reportados primero):
-🟡 *SUC-000126* · Dano Estructural · 18 rep. · LG-030904 · Caraballeda
+🟡 *SUC-000013* · Dano Estructural · 18 rep. · LG-049029 · Caraballeda
    📍 https://maps.google.com/?q=10.61766,-66.85463
-🟡 *SUC-000165* · Dano Estructural · 9 rep. · Edificio María Consuelo · Chacao
-   📍 https://maps.google.com/?q=10.49344,-66.85506
-🟡 *SUC-000155* · Dano Estructural · 9 rep. · LG-041778 · Caraballeda
+🟡 *SUC-000021* · Dano Estructural · 9 rep. · LG-054968 · Caraballeda
    📍 https://maps.google.com/?q=10.61125,-66.86621
-🟡 *SUC-000125* · Dano Estructural · 8 rep. · LG-044385 · Caraballeda
+🟡 *SUC-000042* · Dano Estructural · 9 rep. · Edificio María Consuelo · Chacao
+   📍 https://maps.google.com/?q=10.49344,-66.85506
+🟡 *SUC-000051* · Dano Estructural · 8 rep. · LG-054718 · Caraballeda
    📍 https://maps.google.com/?q=10.60969,-66.85549
-🟡 *SUC-000144* · Dano Estructural · 8 rep. · LG-045053 · Caraballeda
+🟡 *SUC-000024* · Dano Estructural · 8 rep. · Bellevue · Caraballeda
    📍 https://maps.google.com/?q=10.61456,-66.84520
-🟡 *SUC-000137* · Dano Estructural · 6 rep. · Centro Villasmil · Santa Rosalia
+🟡 *SUC-000016* · Dano Estructural · 6 rep. · Centro Villasmil · Santa Rosalia
    📍 https://maps.google.com/?q=10.50179,-66.90754
-🟡 *SUC-000145* · Dano Estructural · 5 rep. · edificio por confirmar · El Junquito
-   📍 https://maps.google.com/?q=10.46091,-67.08040
-🟡 *SUC-000139* · Dano Estructural · 5 rep. · LG-000480 · Urimare
+🟡 *SUC-000018* · Dano Estructural · 5 rep. · LG-000477 · Urimare
    📍 https://maps.google.com/?q=10.60727,-67.02112
-🟡 *SUC-000136* · Dano Estructural · 4 rep. · LG-041440 · Macuto
+🟡 *SUC-000025* · Dano Estructural · 5 rep. · CC-115880 · El Junquito
+   📍 https://maps.google.com/?q=10.46091,-67.08040
+🟡 *SUC-000027* · Dano Estructural · 4 rep. · LG-048009 · Macuto
    📍 https://maps.google.com/?q=10.60869,-66.87822
-🟡 *SUC-000153* · Dano Estructural · 4 rep. · Edificio Caribe · Chacao
-   📍 https://maps.google.com/?q=10.49281,-66.85291
-🟡 *SUC-000129* · Dano Estructural · 4 rep. · LG-042328 · Catia La Mar
-   📍 https://maps.google.com/?q=10.60364,-67.02917
-🟡 *SUC-000130* · Dano Estructural · 4 rep. · LG-000803 · Urimare
+🟡 *SUC-000010* · Dano Estructural · 4 rep. · LG-000800 · Urimare
    📍 https://maps.google.com/?q=10.61026,-67.02474
-
-*🔍 PERSONAS DESAPARECIDAS: 18 búsquedas activas* (2 menores — datos protegidos)
-  • PER-000010: MENOR DE EDAD (2 años) — datos protegido · Caraballeda
-  • PER-000014: MENOR DE EDAD (7 años) — datos protegido · La Guaira
-  • PER-000001: Jonathan Diaz · Caraballeda
-  • PER-000002: Jose Sabe · La Guaira
-  • PER-000003: Matriannys Morom · Caraballeda
-  • PER-000004: Ivis Guevara · La Guaira
-  • PER-000005: Víctor Gabriel Maritato · Santa Rosalia
-  • PER-000006: Thais Guevara · Caraballeda
-  Directorio completo/aportar datos: desaparecidosvenezuela.com
-
-*⚠️ DESAPARECIDOS CERCA DE EDIFICIOS DAÑADOS* (cruce georreferenciado):
-  • PER-000002 a 375 m del suceso SUC-000149 (1 reportes de daño)
-  • PER-000007 a 375 m del suceso SUC-000149 (1 reportes de daño)
-  • MENOR a 375 m del suceso SUC-000149 (1 reportes de daño)
-  • PER-000016 a 375 m del suceso SUC-000149 (1 reportes de daño)
-  • PER-000004 a 375 m del suceso SUC-000149 (1 reportes de daño)
-  • PER-000013 a 557 m del suceso SUC-000144 (8 reportes de daño)
-  _Sugerencia: los equipos que inspeccionen esos sitios lleven las fichas de búsqueda._
+🟡 *SUC-000020* · Dano Estructural · 4 rep. · Edificio Bancaracas · Chacao
+   📍 https://maps.google.com/?q=10.49791,-66.85075
+🟡 *SUC-000007* · Dano Estructural · 4 rep. · LG-000684 · Urimare
+   📍 https://maps.google.com/?q=10.60980,-67.01084
 
 *🏕 REFUGIOS/CAMPAMENTOS REPORTADOS (5):*
   • https://maps.google.com/?q=10.60368,-66.90595 (reportado 2026-07-06)
