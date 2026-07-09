@@ -1,4 +1,4 @@
-🚨 *RESCUEGIS — PARTE OPERATIVO* · 09-Jul 11:32 UTC
+🚨 *RESCUEGIS — PARTE OPERATIVO* · 09-Jul 19:01 UTC
 
 Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
 *143 reportes* → *53 sucesos* únicos (22 corroborados por 2+ reportes)
@@ -45,7 +45,7 @@ Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
   • https://maps.google.com/?q=10.61352,-66.84222 (reportado 2026-07-03)
   • https://maps.google.com/?q=10.60237,-66.92850 (reportado 2026-07-03)
 
-🗺 Mapa completo: https://luisandresg393-source.github.io/RescueGIS-LaGuaira-Caracas/live/panel.html
+🗺 Mapa interactivo EN VIVO: https://luisandresg393-source.github.io/RescueGIS-LaGuaira-Caracas/live/mapa.html
 📥 Capa QGIS (GeoJSON): https://luisandresg393-source.github.io/RescueGIS-LaGuaira-Caracas/live/sucesos.geojson
 
 ⚠️ _Reportes ciudadanos SIN verificación oficial — confirmar en sitio._
