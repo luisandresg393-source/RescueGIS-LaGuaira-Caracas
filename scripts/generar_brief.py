@@ -149,7 +149,7 @@ if refugios:
 
 lineas += [
     "",
-    f"🗺 Mapa completo: {PAGES}/live/panel.html",
+    f"🗺 Mapa interactivo EN VIVO: {PAGES}/live/mapa.html",
     f"📥 Capa QGIS (GeoJSON): {PAGES}/live/sucesos.geojson",
     "",
     "⚠️ _Reportes ciudadanos SIN verificación oficial — confirmar en sitio._",
