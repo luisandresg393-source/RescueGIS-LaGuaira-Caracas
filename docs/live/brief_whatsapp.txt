@@ -1,8 +1,8 @@
-🚨 *RESCUEGIS — PARTE OPERATIVO* · 10-Jul 10:13 UTC
+🚨 *RESCUEGIS — PARTE OPERATIVO* · 10-Jul 18:11 UTC
 
 Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
-*145 reportes* → *54 sucesos* únicos (22 corroborados por 2+ reportes)
-Último reporte ingerido: 09-Jul 22:29
+*146 reportes* → *55 sucesos* únicos (22 corroborados por 2+ reportes)
+Último reporte ingerido: 10-Jul 13:58
 
 *CONCENTRACIÓN POR PARROQUIA:*
   • Caraballeda: 50 reportes
@@ -15,12 +15,12 @@ Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
 *SUCESOS PRINCIPALES* (más reportados primero):
 🟡 *SUC-000014* · Dano Estructural · 18 rep. · LG-049029 · Caraballeda
    📍 https://maps.google.com/?q=10.61766,-66.85463
-🟡 *SUC-000022* · Dano Estructural · 9 rep. · LG-054968 · Caraballeda
-   📍 https://maps.google.com/?q=10.61125,-66.86621
 🟡 *SUC-000043* · Dano Estructural · 9 rep. · Edificio María Consuelo · Chacao
    📍 https://maps.google.com/?q=10.49344,-66.85506
 🟡 *SUC-000025* · Dano Estructural · 9 rep. · LG-044932 · Caraballeda
    📍 https://maps.google.com/?q=10.61426,-66.84539
+🟡 *SUC-000022* · Dano Estructural · 9 rep. · LG-054968 · Caraballeda
+   📍 https://maps.google.com/?q=10.61125,-66.86621
 🟡 *SUC-000052* · Dano Estructural · 8 rep. · LG-054718 · Caraballeda
    📍 https://maps.google.com/?q=10.60969,-66.85549
 🟡 *SUC-000017* · Dano Estructural · 6 rep. · Centro Villasmil · Santa Rosalia
@@ -29,8 +29,8 @@ Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
    📍 https://maps.google.com/?q=10.46091,-67.08040
 🟡 *SUC-000019* · Dano Estructural · 5 rep. · LG-000477 · Urimare
    📍 https://maps.google.com/?q=10.60727,-67.02112
-🟡 *SUC-000032* · Dano Estructural · 4 rep. · Edificio Caribe · Chacao
-   📍 https://maps.google.com/?q=10.49281,-66.85291
+🟡 *SUC-000011* · Dano Estructural · 4 rep. · LG-000800 · Urimare
+   📍 https://maps.google.com/?q=10.61026,-67.02474
 🟡 *SUC-000008* · Dano Estructural · 4 rep. · LG-000684 · Urimare
    📍 https://maps.google.com/?q=10.60980,-67.01084
 🟡 *SUC-000021* · Dano Estructural · 4 rep. · Edificio Bancaracas · Chacao
