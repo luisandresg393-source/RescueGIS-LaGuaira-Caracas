@@ -1,41 +1,41 @@
-🚨 *RESCUEGIS — PARTE OPERATIVO* · 12-Jul 15:43 UTC
+🚨 *RESCUEGIS — PARTE OPERATIVO* · 12-Jul 20:38 UTC
 
 Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
-*153 reportes* → *55 sucesos* únicos (22 corroborados por 2+ reportes)
-Último reporte ingerido: 11-Jul 19:31
+*154 reportes* → *56 sucesos* únicos (22 corroborados por 2+ reportes)
+Último reporte ingerido: 12-Jul 19:35
 
 *CONCENTRACIÓN POR PARROQUIA:*
   • Caraballeda: 53 reportes
   • Chacao: 30 reportes
   • Urimare: 17 reportes
   • Catia La Mar: 9 reportes
-  • (sin parroquia): 7 reportes
+  • (sin parroquia): 8 reportes
   • Macuto: 7 reportes
 
 *SUCESOS PRINCIPALES* (más reportados primero):
-🟡 *SUC-000015* · Dano Estructural · 18 rep. · LG-049029 · Caraballeda
+🟡 *SUC-000016* · Dano Estructural · 18 rep. · LG-049029 · Caraballeda
    📍 https://maps.google.com/?q=10.61766,-66.85463
-🟡 *SUC-000026* · Dano Estructural · 12 rep. · Costa Brava · Caraballeda
+🟡 *SUC-000027* · Dano Estructural · 12 rep. · Costa Brava · Caraballeda
    📍 https://maps.google.com/?q=10.61368,-66.84569
-🟡 *SUC-000043* · Dano Estructural · 9 rep. · Edificio María Consuelo · Chacao
+🟡 *SUC-000044* · Dano Estructural · 9 rep. · Edificio María Consuelo · Chacao
    📍 https://maps.google.com/?q=10.49344,-66.85506
-🟡 *SUC-000023* · Dano Estructural · 9 rep. · LG-054968 · Caraballeda
+🟡 *SUC-000024* · Dano Estructural · 9 rep. · LG-054968 · Caraballeda
    📍 https://maps.google.com/?q=10.61125,-66.86621
-🟡 *SUC-000052* · Dano Estructural · 8 rep. · LG-054718 · Caraballeda
+🟡 *SUC-000053* · Dano Estructural · 8 rep. · LG-054718 · Caraballeda
    📍 https://maps.google.com/?q=10.60969,-66.85549
-🟡 *SUC-000022* · Dano Estructural · 7 rep. · Hotel El Cid · Chacao
+🟡 *SUC-000023* · Dano Estructural · 7 rep. · Hotel El Cid · Chacao
    📍 https://maps.google.com/?q=10.49736,-66.85069
-🟡 *SUC-000018* · Dano Estructural · 6 rep. · Centro Villasmil · Santa Rosalia
+🟡 *SUC-000019* · Dano Estructural · 6 rep. · Centro Villasmil · Santa Rosalia
    📍 https://maps.google.com/?q=10.50179,-66.90754
-🟡 *SUC-000020* · Dano Estructural · 5 rep. · LG-000477 · Urimare
+🟡 *SUC-000021* · Dano Estructural · 5 rep. · LG-000477 · Urimare
    📍 https://maps.google.com/?q=10.60727,-67.02112
-🟡 *SUC-000012* · Dano Estructural · 5 rep. · LG-000800 · Urimare
+🟡 *SUC-000013* · Dano Estructural · 5 rep. · LG-000800 · Urimare
    📍 https://maps.google.com/?q=10.61021,-67.02454
-🟡 *SUC-000027* · Dano Estructural · 5 rep. · CC-115880 · El Junquito
+🟡 *SUC-000028* · Dano Estructural · 5 rep. · CC-115880 · El Junquito
    📍 https://maps.google.com/?q=10.46091,-67.08040
-🟡 *SUC-000009* · Dano Estructural · 4 rep. · LG-000684 · Urimare
+🟡 *SUC-000010* · Dano Estructural · 4 rep. · LG-000684 · Urimare
    📍 https://maps.google.com/?q=10.60980,-67.01084
-🟡 *SUC-000028* · Dano Estructural · 4 rep. · LG-048009 · Macuto
+🟡 *SUC-000029* · Dano Estructural · 4 rep. · LG-048009 · Macuto
    📍 https://maps.google.com/?q=10.60869,-66.87822
 
 *🏕 REFUGIOS/CAMPAMENTOS REPORTADOS (6):*
