@@ -1,8 +1,8 @@
-🚨 *RESCUEGIS — PARTE OPERATIVO* · 16-Jul 12:04 UTC
+🚨 *RESCUEGIS — PARTE OPERATIVO* · 16-Jul 16:52 UTC
 
 Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
-*155 reportes* → *56 sucesos* únicos (22 corroborados por 2+ reportes)
-Último reporte ingerido: 12-Jul 21:20
+*156 reportes* → *57 sucesos* únicos (22 corroborados por 2+ reportes)
+Último reporte ingerido: 16-Jul 15:57
 
 *CONCENTRACIÓN POR PARROQUIA:*
   • Caraballeda: 53 reportes
@@ -23,20 +23,20 @@ Fuente: reportes ciudadanos de la activación HOT (ChatMap) + fuentes federadas
    📍 https://maps.google.com/?q=10.49344,-66.85506
 🟡 *SUC-000053* · Dano Estructural · 8 rep. · LG-054718 · Caraballeda
    📍 https://maps.google.com/?q=10.60969,-66.85549
-🟡 *SUC-000019* · Dano Estructural · 7 rep. · Centro Villasmil · Santa Rosalia
-   📍 https://maps.google.com/?q=10.50136,-66.90769
 🟡 *SUC-000023* · Dano Estructural · 7 rep. · Hotel El Cid · Chacao
    📍 https://maps.google.com/?q=10.49736,-66.85069
-🟡 *SUC-000021* · Dano Estructural · 5 rep. · LG-000477 · Urimare
-   📍 https://maps.google.com/?q=10.60727,-67.02112
-🟡 *SUC-000013* · Dano Estructural · 5 rep. · LG-000800 · Urimare
-   📍 https://maps.google.com/?q=10.61021,-67.02454
+🟡 *SUC-000019* · Dano Estructural · 7 rep. · Centro Villasmil · Santa Rosalia
+   📍 https://maps.google.com/?q=10.50136,-66.90769
 🟡 *SUC-000028* · Dano Estructural · 5 rep. · CC-115880 · El Junquito
    📍 https://maps.google.com/?q=10.46091,-67.08040
+🟡 *SUC-000013* · Dano Estructural · 5 rep. · LG-000800 · Urimare
+   📍 https://maps.google.com/?q=10.61021,-67.02454
+🟡 *SUC-000021* · Dano Estructural · 5 rep. · LG-000477 · Urimare
+   📍 https://maps.google.com/?q=10.60727,-67.02112
 🟡 *SUC-000010* · Dano Estructural · 4 rep. · LG-000684 · Urimare
    📍 https://maps.google.com/?q=10.60980,-67.01084
-🟡 *SUC-000029* · Dano Estructural · 4 rep. · LG-048009 · Macuto
-   📍 https://maps.google.com/?q=10.60869,-66.87822
+🟡 *SUC-000033* · Dano Estructural · 4 rep. · Edificio Caribe · Chacao
+   📍 https://maps.google.com/?q=10.49281,-66.85291
 
 *🏕 REFUGIOS/CAMPAMENTOS REPORTADOS (6):*
   • https://maps.google.com/?q=10.49672,-66.91815 (reportado 2026-07-09)
